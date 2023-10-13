@@ -1,14 +1,15 @@
 import { getDefaultMiddleware } from '@reduxjs/toolkit';
 
-import { sendMetric } from '@/modules/metrics';
+import { metricsApi } from '@/modules/metrics';
+import { notificationsApi } from '@/modules/notifications';
 
-export const singletones = {
-  sendMetric,
-  // notification
+export const SIGNLETON_APIS = {
+  metricsApi,
+  notificationsApi,
 };
 
 export const middlewares = getDefaultMiddleware({
   thunk: {
-    extraArgument: singletones,
+    extraArgument: SIGNLETON_APIS,
   },
 });

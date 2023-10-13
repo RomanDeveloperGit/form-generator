@@ -1,7 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 
-import { MetricAction, MetricContext, MetricType } from '@/modules/metrics';
+import { MetricAction, MetricContext, MetricType } from '@/constants/metrics';
+import { NotificationType } from '@/constants/notifications';
+import { CLIENT_ERROR } from '@/constants/errors';
+import { isErrorType } from '@/helpers/errors';
+
 import { formsActions } from './slice';
 import { formsSelectors } from './selectors';
 
@@ -9,11 +13,21 @@ const createForm = createAsyncThunk<void, string, AppThunkApiConfig>(
   'forms / create',
   async (formName, { dispatch, getState, extra }) => {
     try {
+      formName = formName.trim();
+
       const state = getState() as AppState;
 
-      if (!formName) throw new Error('Expected name as not-empty string.');
+      if (!formName)
+        throw {
+          code: CLIENT_ERROR,
+          message: 'Имя должно быть не пустой строкой.',
+        };
+
       if (formsSelectors.isFormExistByName(state, formName))
-        throw new Error('The name of the form is occupied.');
+        throw {
+          code: CLIENT_ERROR,
+          message: 'Указанное имя формы уже занято.',
+        };
 
       dispatch(
         formsActions.createForm({
@@ -22,18 +36,32 @@ const createForm = createAsyncThunk<void, string, AppThunkApiConfig>(
         }),
       );
 
-      extra.sendMetric(
+      extra.metricsApi(
         MetricContext.Form,
         MetricAction.Add,
         MetricType.Success,
       );
 
-      // ПУШИТЬ УВЕДОМЛЕНИЯ; ВОЗМОЖНО, ЛИСТЕНЕР НУЖЕН?
+      extra.notificationsApi(
+        NotificationType.Success,
+        `Форма "${formName}" успешно создана.`,
+      );
     } catch (error) {
-      extra.sendMetric(MetricContext.Form, MetricAction.Add, MetricType.Fail);
-      // ПУШИТЬ УВЕДОМЛЕНИЯ; ВОЗМОЖНО, ЛИСТЕНЕР НУЖЕН?
+      extra.metricsApi(MetricContext.Form, MetricAction.Add, MetricType.Fail);
+
+      const errorDescription = isErrorType(error)
+        ? error.message
+        : 'Непредвиденная ошибка';
+
+      extra.notificationsApi(
+        NotificationType.Error,
+        'Не удалось создать форму.',
+        errorDescription,
+      );
 
       console.error(error);
+
+      // reject with value ?
     }
   },
 );
