@@ -6,7 +6,6 @@ export const App = () => {
   // react hook form
   // listener
   // sentry
-  // local storage, persist???
   // api ???
   // eslint sort imports
 
