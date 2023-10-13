@@ -1,15 +1,17 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { PlusOutlined } from '@ant-design/icons';
-import { Divider, Input, Select, Space, Button } from 'antd';
+import { Divider, Input, Select, Button, Empty } from 'antd';
 import type { InputRef } from 'antd';
 
 import { useAppDispatch } from '@/helpers/store';
 
-import { formsThunkActions } from '../../actions';
-import { formsSelectors } from '../../selectors';
-import { FormOption } from '../../utils';
+import { formsThunkActions } from '../../../actions';
+import { formsSelectors } from '../../../selectors';
+import { FormOption, convertFormsToOptions } from '../../utils';
+
+import styles from './styles.module.scss';
 
 export const FormSelectionWithAdding = () => {
   const dispatch = useAppDispatch();
@@ -17,6 +19,8 @@ export const FormSelectionWithAdding = () => {
 
   const [newFormName, setNewFormName] = useState('');
   const inputRef = useRef<InputRef>(null);
+
+  const options = useMemo(() => convertFormsToOptions(forms), [forms]);
 
   const filterOption = (input: string, option?: FormOption) =>
     (option?.label ?? '').includes(input);
@@ -45,29 +49,30 @@ export const FormSelectionWithAdding = () => {
 
   return (
     <Select
-      style={{ width: 300 }}
+      className={styles.container}
       showSearch={true}
       filterOption={filterOption}
       filterSort={filterSort}
       placeholder="Выберите форму"
+      notFoundContent={<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Ничего не найдено." />}
       dropdownRender={(menu) => (
         <>
           {menu}
-          <Divider style={{ margin: '8px 0' }} />
-          <Space style={{ padding: '0 8px 4px' }}>
+          <Divider className={styles.divider} />
+          <div className={styles.addFormBlock}>
             <Input
               ref={inputRef}
               placeholder="Название формы"
               value={newFormName}
               onChange={handleNewFormNameChange}
             />
-            <Button type="text" icon={<PlusOutlined />} onClick={addItem}>
+            <Button type="link" icon={<PlusOutlined />} onClick={addItem}>
               Добавить
             </Button>
-          </Space>
+          </div>
         </>
       )}
-      options={forms.map((form) => ({ label: form.name, value: form.id }))}
+      options={options}
     />
   );
 };

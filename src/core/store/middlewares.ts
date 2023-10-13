@@ -4,6 +4,7 @@ import { sendMetric } from '@/modules/metrics';
 
 export const singletones = {
   sendMetric,
+  // notification
 };
 
 export const middlewares = getDefaultMiddleware({

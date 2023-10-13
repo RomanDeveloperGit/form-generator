@@ -1,7 +1,8 @@
-import { FormGenerator } from '@/modules/forms';
+import { FormView, FormGenerator } from '@/modules/forms';
+
+import styles from './styles.module.scss';
 
 export const App = () => {
-  // antd
   // zod
   // react hook form
   // listener
@@ -11,7 +12,8 @@ export const App = () => {
   // eslint sort imports
 
   return (
-    <div>
+    <div className={styles.container}>
+      <FormView />
       <FormGenerator />
     </div>
   );
