@@ -1,6 +1,7 @@
 import { Typography } from 'antd';
 
 import { FormSelectionWithAdding } from './components/form-selection-with-adding';
+import { FormAdding } from './components/form-adding';
 
 import styles from './styles.module.scss';
 
@@ -11,7 +12,7 @@ export const FormGenerator = () => {
       <Typography.Paragraph>
         Настройте существующие формы или создайте новую.
       </Typography.Paragraph>
-      <FormSelectionWithAdding />
+      <FormSelectionWithAdding formAddingSlot={<FormAdding />} />
     </div>
   );
 };

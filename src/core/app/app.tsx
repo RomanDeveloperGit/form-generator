@@ -1,6 +1,4 @@
-import { FormView, FormGenerator } from '@/modules/forms';
-
-import styles from './styles.module.scss';
+import { Forms } from '@/modules/forms';
 
 export const App = () => {
   // zod
@@ -12,9 +10,8 @@ export const App = () => {
   // eslint sort imports
 
   return (
-    <div className={styles.container}>
-      <FormView />
-      <FormGenerator />
+    <div>
+      <Forms />
     </div>
   );
 };
