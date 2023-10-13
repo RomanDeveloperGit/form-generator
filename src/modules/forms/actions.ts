@@ -3,18 +3,16 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { MetricAction, MetricContext, MetricType } from '@/modules/metrics';
 import { formsActions } from './slice';
-import { isFormExistByName } from './selectors';
+import { formsSelectors } from './selectors';
 
-export const createForm = createAsyncThunk<void, undefined, AppThunkApiConfig>(
+const createForm = createAsyncThunk<void, string, AppThunkApiConfig>(
   'forms / create',
-  async (_, { dispatch, getState, extra }) => {
+  async (formName, { dispatch, getState, extra }) => {
     try {
       const state = getState() as AppState;
 
-      const formName = prompt('Введите имя формы');
-
       if (!formName) throw new Error('Expected name as not-empty string.');
-      if (isFormExistByName(state, formName))
+      if (formsSelectors.isFormExistByName(state, formName))
         throw new Error('The name of the form is occupied.');
 
       dispatch(
@@ -39,3 +37,7 @@ export const createForm = createAsyncThunk<void, undefined, AppThunkApiConfig>(
     }
   },
 );
+
+export const formsThunkActions = {
+  createForm,
+};

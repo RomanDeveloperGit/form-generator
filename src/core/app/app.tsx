@@ -8,6 +8,7 @@ export const App = () => {
   // sentry
   // local storage
   // api ???
+  // eslint sort imports
 
   return (
     <div>

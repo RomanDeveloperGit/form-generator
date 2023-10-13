@@ -1,34 +1,54 @@
 import { useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { PlusOutlined } from '@ant-design/icons';
 import { Divider, Input, Select, Space, Button } from 'antd';
 import type { InputRef } from 'antd';
 
-let index = 0;
+import { useAppDispatch } from '@/helpers/store';
+
+import { formsThunkActions } from '../../actions';
+import { formsSelectors } from '../../selectors';
+import { FormOption } from '../../utils';
 
 export const FormSelectionWithAdding = () => {
-  const [items, setItems] = useState(['jack', 'lucy']);
-  const [name, setName] = useState('');
+  const dispatch = useAppDispatch();
+  const forms = useSelector(formsSelectors.getAllForms);
+
+  const [newFormName, setNewFormName] = useState('');
   const inputRef = useRef<InputRef>(null);
 
-  const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
+  const filterOption = (input: string, option?: FormOption) =>
+    (option?.label ?? '').includes(input);
+
+  const filterSort = (optionA: FormOption, optionB: FormOption) =>
+    (optionA?.label ?? '')
+      .toLowerCase()
+      .localeCompare((optionB?.label ?? '').toLowerCase());
+
+  const handleNewFormNameChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setNewFormName(event.target.value);
   };
 
   const addItem = (
-    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
+    event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
   ) => {
-    e.preventDefault();
-    setItems([...items, name || `New item ${index++}`]);
-    setName('');
-    setTimeout(() => {
-      inputRef.current?.focus();
-    }, 0);
+    event.preventDefault();
+
+    dispatch(formsThunkActions.createForm(newFormName));
+    setNewFormName('');
+
+    inputRef.current?.focus();
   };
 
   return (
     <Select
       style={{ width: 300 }}
+      showSearch={true}
+      filterOption={filterOption}
+      filterSort={filterSort}
       placeholder="Выберите форму"
       dropdownRender={(menu) => (
         <>
@@ -38,8 +58,8 @@ export const FormSelectionWithAdding = () => {
             <Input
               ref={inputRef}
               placeholder="Название формы"
-              value={name}
-              onChange={onNameChange}
+              value={newFormName}
+              onChange={handleNewFormNameChange}
             />
             <Button type="text" icon={<PlusOutlined />} onClick={addItem}>
               Добавить
@@ -47,7 +67,7 @@ export const FormSelectionWithAdding = () => {
           </Space>
         </>
       )}
-      options={items.map((item) => ({ label: item, value: item }))}
+      options={forms.map((form) => ({ label: form.name, value: form.id }))}
     />
   );
 };

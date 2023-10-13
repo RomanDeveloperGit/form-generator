@@ -10,8 +10,6 @@ export const { reducer: formsReducer, actions: formsActions } = createSlice({
   reducers: {
     createForm(state, action: PayloadAction<Form>) {
       state.push(action.payload);
-
-      console.log('create', state, action);
     },
   },
 });
