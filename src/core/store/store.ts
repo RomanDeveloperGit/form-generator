@@ -4,7 +4,7 @@ import persistReducer from 'redux-persist/lib/persistReducer';
 
 import { PERSIST_CONFIG } from './persist-config';
 import { rootReducer } from './root-reducer';
-import { middlewares } from './middlewares';
+import { middlewares } from './middlewares/middlewares';
 
 export const store = configureStore({
   reducer: persistReducer(PERSIST_CONFIG, rootReducer),

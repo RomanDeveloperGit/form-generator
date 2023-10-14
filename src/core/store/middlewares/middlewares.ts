@@ -8,13 +8,8 @@ import {
   REGISTER,
 } from 'redux-persist';
 
-import { metricsApi } from '@/modules/metrics';
-import { notificationsApi } from '@/modules/notifications';
-
-export const singletonApis = {
-  metricsApi,
-  notificationsApi,
-};
+import { singletonApis } from './signleton-apis';
+import { listenerMiddleware } from './listeners';
 
 export const middlewares = getDefaultMiddleware({
   thunk: {
@@ -23,4 +18,4 @@ export const middlewares = getDefaultMiddleware({
   serializableCheck: {
     ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
   },
-});
+}).concat(listenerMiddleware.middleware);

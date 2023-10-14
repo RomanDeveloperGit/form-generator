@@ -8,7 +8,10 @@ import { useAppDispatch } from '@/helpers/store';
 
 import { formsThunkActions } from '../../../model/actions';
 
-import { formNameSchema, FormNameSchemaFields } from '../../schemas/form-name-schema';
+import {
+  formNameSchema,
+  FormNameSchemaFields,
+} from '../../schemas/form-name-schema';
 import styles from './styles.module.scss';
 
 export const FormAdding = () => {
