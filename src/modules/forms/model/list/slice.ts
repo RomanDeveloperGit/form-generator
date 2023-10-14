@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Form } from './types';
+import { Form } from '../types';
 
 const INITIAL_STATE: Form[] = [];
 
-export const { reducer: formsReducer, actions: formsActions } = createSlice({
-  name: 'forms',
+export const { reducer: formsListReducer, actions: formsListActions } = createSlice({
+  name: 'forms/list',
   initialState: INITIAL_STATE,
   reducers: {
     createForm(state, action: PayloadAction<Form>) {

@@ -6,17 +6,18 @@ import { NotificationType } from '@/constants/notifications';
 import { CLIENT_ERROR } from '@/constants/errors';
 import { isErrorType } from '@/helpers/errors';
 
-import { formsActions } from './slice';
-import { formsSelectors } from './selectors';
+import { formsListActions } from './list/slice';
+import { formsSelectors } from './list/selectors';
 
 const createForm = createAsyncThunk<void, string, AppThunkApiConfig>(
-  'forms / create',
+  'forms/create',
   async (formName, { dispatch, getState, extra }) => {
     try {
-      formName = formName.trim();
+      formName = formName.trim(); // zod/yup/react-hook-form
 
       const state = getState() as AppState;
 
+      // zod/yup/react-hook-form
       if (!formName)
         throw {
           code: CLIENT_ERROR,
@@ -30,7 +31,7 @@ const createForm = createAsyncThunk<void, string, AppThunkApiConfig>(
         };
 
       dispatch(
-        formsActions.createForm({
+        formsListActions.createForm({
           id: uuidv4(),
           name: formName,
         }),

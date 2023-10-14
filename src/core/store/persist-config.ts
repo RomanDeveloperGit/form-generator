@@ -1,7 +1,7 @@
-import storage from 'redux-persist/lib/storage';
+import localforage from 'localforage';
 
 export const PERSIST_CONFIG = {
   key: 'formsState',
-  storage,
+  storage: localforage,
   whiteList: ['forms'],
 };
