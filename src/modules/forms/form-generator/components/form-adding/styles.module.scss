@@ -1,6 +1,17 @@
 .container {
+  padding: 8px;
+}
+
+.mainBlock {
   display: flex;
   align-items: center;
   
   gap: 8px;
+}
+
+.fieldError {
+  color: red;
+
+  padding: 4px 2px 0 2px;
+  margin: 0;
 }

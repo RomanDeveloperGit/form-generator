@@ -39,7 +39,7 @@ export const FormSelectionWithAdding = ({
       }
       dropdownRender={(menu) => (
         <>
-          {menu}
+          <div className={styles.menu}>{menu}</div>
           <Divider className={styles.divider} />
           {formAddingSlot}
         </>

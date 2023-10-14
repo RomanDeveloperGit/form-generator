@@ -1,49 +1,72 @@
-import { useRef, useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import { PlusOutlined } from '@ant-design/icons';
 import { Input, Button } from 'antd';
-import type { InputRef } from 'antd';
 
 import { useAppDispatch } from '@/helpers/store';
 
 import { formsThunkActions } from '../../../model/actions';
 
+import { formAddingSchema, FormAddingsFields } from './schema';
 import styles from './styles.module.scss';
 
 export const FormAdding = () => {
   const dispatch = useAppDispatch();
 
-  const [newFormName, setNewFormName] = useState('');
-  const inputRef = useRef<InputRef>(null);
+  const {
+    control,
+    reset,
+    getValues,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormAddingsFields>({
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+    resolver: zodResolver(formAddingSchema),
+    defaultValues: {
+      name: '',
+    },
+  });
 
-  const handleNewFormNameChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    setNewFormName(event.target.value);
-  };
+  const handlePreparedSubmit = handleSubmit(async (fields) => {
+    const result = await dispatch(formsThunkActions.createForm(fields.name));
 
-  const addItem = (
-    event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
-  ) => {
-    event.preventDefault();
+    if (result.meta.requestStatus === 'fulfilled') {
+      reset();
+    }
+  });
 
-    dispatch(formsThunkActions.createForm(newFormName));
-    setNewFormName('');
-
-    inputRef.current?.focus();
-  };
+  const inputStatus = errors.name?.message ? 'error' : undefined;
+  const isButtonDisabled = !!errors.name?.message || !getValues('name').length;
 
   return (
-    <div className={styles.container}>
-      <Input
-        ref={inputRef}
-        placeholder="Название формы"
-        value={newFormName}
-        onChange={handleNewFormNameChange}
-      />
-      <Button type="link" icon={<PlusOutlined />} onClick={addItem}>
-        Добавить
-      </Button>
-    </div>
+    <form className={styles.container} onSubmit={handlePreparedSubmit}>
+      <div className={styles.mainBlock}>
+        <Controller
+          render={({ field }) => (
+            <Input
+              {...field}
+              autoComplete="off"
+              placeholder="Название формы"
+              status={inputStatus}
+            />
+          )}
+          name="name"
+          control={control}
+        />
+        <Button
+          type="link"
+          htmlType="submit"
+          icon={<PlusOutlined />}
+          disabled={isButtonDisabled}
+        >
+          Добавить
+        </Button>
+      </div>
+      {errors.name?.message && (
+        <p className={styles.fieldError}>{errors.name?.message}</p>
+      )}
+    </form>
   );
 };

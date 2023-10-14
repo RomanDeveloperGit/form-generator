@@ -8,21 +8,16 @@ import { isErrorType } from '@/helpers/errors';
 
 import { formsListActions } from './list/slice';
 import { formsSelectors } from './list/selectors';
+import { Form } from './types';
 
-const createForm = createAsyncThunk<void, string, AppThunkApiConfig>(
+const createForm = createAsyncThunk<Form, string, AppThunkApiConfig>(
   'forms/create',
-  async (formName, { dispatch, getState, extra }) => {
+  async (
+    formName,
+    { dispatch, fulfillWithValue, rejectWithValue, getState, extra },
+  ) => {
     try {
-      formName = formName.trim(); // zod/yup/react-hook-form
-
       const state = getState() as AppState;
-
-      // zod/yup/react-hook-form
-      if (!formName)
-        throw {
-          code: CLIENT_ERROR,
-          message: 'Имя должно быть не пустой строкой.',
-        };
 
       if (formsSelectors.isFormExistByName(state, formName))
         throw {
@@ -30,12 +25,13 @@ const createForm = createAsyncThunk<void, string, AppThunkApiConfig>(
           message: 'Указанное имя формы уже занято.',
         };
 
-      dispatch(
-        formsListActions.createForm({
-          id: uuidv4(),
-          name: formName,
-        }),
-      );
+      const form: Form = {
+        id: uuidv4(),
+        name: formName,
+        fields: [],
+      };
+
+      dispatch(formsListActions.createForm(form));
 
       extra.metricsApi(
         MetricContext.Form,
@@ -45,8 +41,10 @@ const createForm = createAsyncThunk<void, string, AppThunkApiConfig>(
 
       extra.notificationsApi(
         NotificationType.Success,
-        `Форма "${formName}" успешно создана.`,
+        `Форма "${form.name}" успешно создана.`,
       );
+
+      return fulfillWithValue(form);
     } catch (error) {
       extra.metricsApi(MetricContext.Form, MetricAction.Add, MetricType.Fail);
 
@@ -62,7 +60,7 @@ const createForm = createAsyncThunk<void, string, AppThunkApiConfig>(
 
       console.error(error);
 
-      // reject with value ?
+      return rejectWithValue(error);
     }
   },
 );
