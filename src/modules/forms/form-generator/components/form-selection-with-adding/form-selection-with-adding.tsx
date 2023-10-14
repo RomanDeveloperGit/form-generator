@@ -10,8 +10,12 @@ import styles from './styles.module.scss';
 
 export const FormSelectionWithAdding = ({
   formAddingSlot,
+  selectedFormId,
+  onFormSelect,
 }: {
   formAddingSlot: JSX.Element;
+  selectedFormId: string;
+  onFormSelect: (formId: string) => void;
 }) => {
   const forms = useSelector(formsSelectors.getAllForms);
   const options = useMemo(() => convertFormsToOptions(forms), [forms]);
@@ -31,6 +35,9 @@ export const FormSelectionWithAdding = ({
       filterOption={filterOption}
       filterSort={filterSort}
       placeholder="Выберите форму"
+      value={selectedFormId}
+      onSelect={onFormSelect}
+      options={options}
       notFoundContent={
         <Empty
           image={Empty.PRESENTED_IMAGE_SIMPLE}
@@ -44,7 +51,6 @@ export const FormSelectionWithAdding = ({
           {formAddingSlot}
         </>
       )}
-      options={options}
     />
   );
 };

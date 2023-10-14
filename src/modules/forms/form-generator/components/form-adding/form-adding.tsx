@@ -8,7 +8,7 @@ import { useAppDispatch } from '@/helpers/store';
 
 import { formsThunkActions } from '../../../model/actions';
 
-import { formAddingSchema, FormAddingsFields } from './schema';
+import { formNameSchema, FormNameSchemaFields } from '../../schemas/form-name-schema';
 import styles from './styles.module.scss';
 
 export const FormAdding = () => {
@@ -20,10 +20,10 @@ export const FormAdding = () => {
     getValues,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormAddingsFields>({
+  } = useForm<FormNameSchemaFields>({
     mode: 'onChange',
     reValidateMode: 'onChange',
-    resolver: zodResolver(formAddingSchema),
+    resolver: zodResolver(formNameSchema),
     defaultValues: {
       name: '',
     },

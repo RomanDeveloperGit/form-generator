@@ -5,6 +5,8 @@ export const metricsApi = async (
   action: MetricAction,
   type: MetricType,
 ) => {
+  // Визуализировать метрики + сохранять в локал-форейдж
+
   console.log(
     `Выполнено действие ${action} над ${context}. Результат: ${type}`,
   );

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const formAddingSchema = z.object({
+export const formNameSchema = z.object({
   name: z
     .string({
       required_error: 'Название формы не может быть пустым.',
@@ -13,4 +13,4 @@ export const formAddingSchema = z.object({
     }),
 });
 
-export type FormAddingsFields = z.infer<typeof formAddingSchema>;
+export type FormNameSchemaFields = z.infer<typeof formNameSchema>;

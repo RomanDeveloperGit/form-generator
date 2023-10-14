@@ -4,10 +4,10 @@ export enum MetricContext {
 }
 
 export enum MetricAction {
-  Add = 'Add',
-  Edit = 'Edit',
-  Remove = 'Remove',
   View = 'View',
+  Create = 'Create',
+  Edit = 'Edit',
+  Delete = 'Delete',
 }
 
 export enum MetricType {

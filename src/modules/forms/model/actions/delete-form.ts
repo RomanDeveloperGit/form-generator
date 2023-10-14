@@ -1,52 +1,50 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { v4 as uuidv4 } from 'uuid';
 
 import { MetricAction, MetricContext, MetricType } from '@/constants/metrics';
 import { NotificationType } from '@/constants/notifications';
 import { CLIENT_ERROR } from '@/constants/errors';
 import { isErrorType } from '@/helpers/errors';
 
-import { formsListActions } from './list/slice';
-import { formsSelectors } from './list/selectors';
-import { Form } from './types';
+import { formsListActions } from '../list/slice';
+import { formsSelectors } from '../list/selectors';
+import { Form } from '../types';
 
-const createForm = createAsyncThunk<Form, string, AppThunkApiConfig>(
-  'forms/create',
+export const deleteForm = createAsyncThunk<Form, string, AppThunkApiConfig>(
+  'forms/delete',
   async (
-    formName,
+    formId,
     { dispatch, fulfillWithValue, rejectWithValue, getState, extra },
   ) => {
     try {
       const state = getState() as AppState;
+      const form = formsSelectors.getFormById(state, formId);
 
-      if (formsSelectors.isFormExistByName(state, formName))
+      if (!form)
         throw {
           code: CLIENT_ERROR,
-          message: 'Указанное имя формы уже занято.',
+          message: 'Формы не существует.',
         };
 
-      const form: Form = {
-        id: uuidv4(),
-        name: formName,
-        fields: [],
-      };
-
-      dispatch(formsListActions.createForm(form));
+      dispatch(formsListActions.deleteForm(formId));
 
       extra.metricsApi(
         MetricContext.Form,
-        MetricAction.Add,
+        MetricAction.Delete,
         MetricType.Success,
       );
 
       extra.notificationsApi(
         NotificationType.Success,
-        `Форма "${form.name}" успешно создана.`,
+        `Форма "${form.name}" успешно удалена.`,
       );
 
       return fulfillWithValue(form);
     } catch (error) {
-      extra.metricsApi(MetricContext.Form, MetricAction.Add, MetricType.Fail);
+      extra.metricsApi(
+        MetricContext.Form,
+        MetricAction.Delete,
+        MetricType.Fail,
+      );
 
       const errorDescription = isErrorType(error)
         ? error.message
@@ -54,7 +52,7 @@ const createForm = createAsyncThunk<Form, string, AppThunkApiConfig>(
 
       extra.notificationsApi(
         NotificationType.Error,
-        'Не удалось создать форму.',
+        'Не удалось удалить форму.',
         errorDescription,
       );
 
@@ -64,7 +62,3 @@ const createForm = createAsyncThunk<Form, string, AppThunkApiConfig>(
     }
   },
 );
-
-export const formsThunkActions = {
-  createForm,
-};
