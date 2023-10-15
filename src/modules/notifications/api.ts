@@ -13,5 +13,6 @@ export const notificationsApi = (
     message: title,
     description,
     duration,
+    placement: 'bottomLeft',
   });
 };
