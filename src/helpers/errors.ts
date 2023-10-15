@@ -1,4 +1,7 @@
-import { ErrorType } from '@/constants/errors';
+export type ErrorType = {
+  code: string;
+  message: string;
+};
 
 export const isErrorType = (error: unknown): error is ErrorType => {
   return (

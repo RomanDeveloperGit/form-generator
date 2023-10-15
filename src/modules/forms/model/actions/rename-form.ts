@@ -1,68 +1,54 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { MetricAction, MetricContext, MetricType } from '@/constants/metrics';
-import { NotificationType } from '@/constants/notifications';
-import { CLIENT_ERROR } from '@/constants/errors';
-import { isErrorType } from '@/helpers/errors';
+import { createClientErrorObject } from '@/utils/errors';
 
 import { formsListActions } from '../list/slice';
 import { formsSelectors } from '../list/selectors';
 import { Form } from '../types';
 
-export const renameForm = createAsyncThunk<
-  Form,
-  Pick<Form, 'id' | 'name'>,
-  AppThunkApiConfig
->(
+type Input = {
+  id: Form['id'];
+  newName: Form['name'];
+};
+
+type Output = Input & {
+  prevName: Form['name'];
+};
+
+export const renameForm = createAsyncThunk<Output, Input, AppThunkApiConfig>(
   'forms/rename',
-  async (
-    form,
-    { dispatch, fulfillWithValue, rejectWithValue, getState, extra },
-  ) => {
+  async (formDraft, thunkApi) => {
     try {
-      const state = getState() as AppState;
-      const prevFormName = formsSelectors.getFormNameById(state, form.id);
+      const state = thunkApi.getState() as AppState;
+      const prevName = formsSelectors.getFormNameById(state, formDraft.id);
       const isFormExistsByName = formsSelectors.isFormExistsByName(
         state,
-        form.name,
+        formDraft.newName,
       );
+
+      if (!prevName)
+        throw createClientErrorObject(
+          'Неизвестная ошибка. Предыдущее имя не найдено.',
+        );
 
       if (isFormExistsByName)
-        throw {
-          code: CLIENT_ERROR,
-          message: 'Указанное имя формы уже занято.',
-        };
+        throw createClientErrorObject('Указанное имя формы уже занято.');
 
-      dispatch(formsListActions.renameForm(form));
-
-      extra.metricsApi(
-        MetricContext.Form,
-        MetricAction.Edit,
-        MetricType.Success,
+      thunkApi.dispatch(
+        formsListActions.renameForm({
+          id: formDraft.id,
+          name: formDraft.newName,
+        }),
       );
 
-      extra.notificationsApi(
-        NotificationType.Success,
-        `Форма "${prevFormName}" была переименована на "${form.name}".`,
-      );
-
-      return fulfillWithValue(form);
+      return thunkApi.fulfillWithValue({
+        ...formDraft,
+        prevName,
+      });
     } catch (error) {
-      extra.metricsApi(MetricContext.Form, MetricAction.Edit, MetricType.Fail);
-
-      const errorDescription = isErrorType(error)
-        ? error.message
-        : 'Непредвиденная ошибка';
-
-      extra.notificationsApi(
-        NotificationType.Error,
-        'Не удалось переименовать форму.',
-        errorDescription,
-      );
-
       console.error(error);
 
-      return rejectWithValue(error);
+      return thunkApi.rejectWithValue(error);
     }
   },
 );

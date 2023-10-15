@@ -1,8 +1,8 @@
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Input, Button } from 'antd';
 
 import { PlusOutlined } from '@ant-design/icons';
-import { Input, Button } from 'antd';
 
 import { useAppDispatch } from '@/helpers/store';
 
@@ -12,6 +12,7 @@ import {
   formNameSchema,
   FormNameSchemaFields,
 } from '../../schemas/form-name-schema';
+
 import styles from './styles.module.scss';
 
 export const FormAdding = () => {
@@ -20,7 +21,6 @@ export const FormAdding = () => {
   const {
     control,
     reset,
-    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm<FormNameSchemaFields>({
@@ -41,7 +41,6 @@ export const FormAdding = () => {
   });
 
   const inputStatus = errors.name?.message ? 'error' : undefined;
-  const isButtonDisabled = !!errors.name?.message || !getValues('name').length;
 
   return (
     <form className={styles.container} onSubmit={handlePreparedSubmit}>
@@ -62,7 +61,6 @@ export const FormAdding = () => {
           type="link"
           htmlType="submit"
           icon={<PlusOutlined />}
-          disabled={isButtonDisabled}
         >
           Добавить
         </Button>

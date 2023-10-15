@@ -1,6 +1,2 @@
-export const CLIENT_ERROR = 'CLIENT_ERROR';
-
-export type ErrorType = {
-  code: string;
-  message: string;
-};
+export const CLIENT_ERROR_CODE = 'CLIENT_ERROR_CODE';
+export const UNEXPECTED_ERROR_MESSAGE = 'Непредвиденная ошибка.';

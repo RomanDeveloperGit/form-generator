@@ -4,8 +4,9 @@ import { useSelector } from 'react-redux';
 import { Divider, Select, Empty } from 'antd';
 
 import { formsSelectors } from '../../../model/list/selectors';
-import { FormOption, convertFormsToOptions } from '../../utils';
 
+import { FormOption } from './types';
+import { convertFormsToOptions } from './utils';
 import styles from './styles.module.scss';
 
 export const FormSelectionWithAdding = ({
