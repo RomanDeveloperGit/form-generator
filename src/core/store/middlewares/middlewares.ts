@@ -8,8 +8,9 @@ import {
   REGISTER,
 } from 'redux-persist';
 
-import { singletonApis } from './signleton-apis';
-import { listenerMiddleware } from './listeners';
+import { singletonApis } from '../../signleton-apis';
+
+import { listenerMiddleware } from './listener-middleware';
 
 export const middlewares = getDefaultMiddleware({
   thunk: {

@@ -2,7 +2,7 @@ import { createListenerMiddleware } from '@reduxjs/toolkit';
 
 import { startFormsListeners } from '@/modules/forms';
 
-import { singletonApis } from './signleton-apis';
+import { singletonApis } from '../../signleton-apis';
 
 const listenerMiddleware = createListenerMiddleware({
   extra: singletonApis,

@@ -1,5 +1,4 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-
+import { createAppAsyncThunk } from '@/helpers/store';
 import { createClientErrorObject } from '@/utils/errors';
 
 import { formsListActions } from '../list/slice';
@@ -15,7 +14,7 @@ type Output = Input & {
   prevName: Form['name'];
 };
 
-export const renameForm = createAsyncThunk<Output, Input, AppThunkApiConfig>(
+export const renameForm = createAppAsyncThunk<Output, Input>(
   'forms/rename',
   async (formDraft, thunkApi) => {
     try {

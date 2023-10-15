@@ -1,12 +1,11 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-
+import { createAppAsyncThunk } from '@/helpers/store';
 import { createClientErrorObject } from '@/utils/errors';
 
 import { formsListActions } from '../list/slice';
 import { formsSelectors } from '../list/selectors';
 import { Form } from '../types';
 
-export const deleteForm = createAsyncThunk<Form, string, AppThunkApiConfig>(
+export const deleteForm = createAppAsyncThunk<Form, string>(
   'forms/delete',
   async (formId, thunkApi) => {
     try {

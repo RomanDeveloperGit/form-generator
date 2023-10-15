@@ -4,8 +4,6 @@ import { getErrorMessage } from '@/utils/errors';
 
 import { formsThunkActions } from './actions';
 
-// Перевести createAsyncThunk на хелпер
-
 const startCreateFormListeners = (appListener: AppListenerMiddleware) => {
   appListener.startListening({
     actionCreator: formsThunkActions.createForm.fulfilled,

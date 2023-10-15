@@ -1,7 +1,8 @@
 import { ListenerMiddlewareInstance } from '@reduxjs/toolkit';
 
-import { singletonApis } from '@/core/store/middlewares/middlewares';
-import { store } from '@/core/store/store';
+import { singletonApis } from '@/core/signleton-apis';
+
+import { store } from './store';
 
 declare global {
   type AppState = ReturnType<typeof store.getState>;
@@ -9,7 +10,7 @@ declare global {
   type AppSingletonApis = typeof singletonApis;
   type AppThunkApiConfig = {
     extra: AppSingletonApis;
-    getState: () => AppState;
+    state: AppState;
   };
   type AppListenerMiddleware = ListenerMiddlewareInstance<
     AppState,

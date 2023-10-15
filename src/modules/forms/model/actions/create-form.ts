@@ -1,17 +1,17 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 
+import { createAppAsyncThunk } from '@/helpers/store';
 import { createClientErrorObject } from '@/utils/errors';
 
 import { formsListActions } from '../list/slice';
 import { formsSelectors } from '../list/selectors';
 import { Form } from '../types';
 
-export const createForm = createAsyncThunk<Form, string, AppThunkApiConfig>(
+export const createForm = createAppAsyncThunk<Form, string>(
   'forms/create',
   async (formName, thunkApi) => {
     try {
-      const state = thunkApi.getState() as AppState;
+      const state = thunkApi.getState();
       const isFormExistsByName = formsSelectors.isFormExistsByName(
         state,
         formName,
