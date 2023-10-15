@@ -13,3 +13,17 @@
   
   gap: 8px;
 }
+
+.controlBox {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 16px;
+}
+
+.fieldError {
+  color: red;
+}

@@ -1,6 +1,6 @@
 declare const classNames: {
   readonly container: 'container';
-  readonly mainBlock: 'mainBlock';
+  readonly controlBox: 'controlBox';
   readonly fieldError: 'fieldError';
 };
 export = classNames;

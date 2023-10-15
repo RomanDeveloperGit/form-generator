@@ -30,7 +30,7 @@ export const FormAdding = () => {
     },
   });
 
-  const handlePreparedSubmit = handleSubmit(async (fields) => {
+  const handleCreateFormSubmit = handleSubmit(async (fields) => {
     const result = await dispatch(formsThunkActions.createForm(fields.name));
 
     if (result.meta.requestStatus === 'fulfilled') {
@@ -38,18 +38,18 @@ export const FormAdding = () => {
     }
   });
 
-  const inputStatus = errors.name?.message ? 'error' : undefined;
+  const nameInputStatus = errors.name?.message ? 'error' : undefined;
 
   return (
-    <form className={styles.container} onSubmit={handlePreparedSubmit}>
-      <div className={styles.mainBlock}>
+    <form className={styles.container} onSubmit={handleCreateFormSubmit}>
+      <div className={styles.controlBox}>
         <Controller
           render={({ field }) => (
             <Input
               {...field}
               autoComplete="off"
               placeholder="Название формы"
-              status={inputStatus}
+              status={nameInputStatus}
             />
           )}
           name="name"
@@ -59,6 +59,7 @@ export const FormAdding = () => {
           Добавить
         </Button>
       </div>
+      {/* Для такого элемента отдельный UI-компонент сделать */}
       {errors.name?.message && (
         <p className={styles.fieldError}>{errors.name?.message}</p>
       )}
