@@ -1,16 +1,14 @@
-import { useForm, Controller } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Input, Button } from 'antd';
-
 import { PlusOutlined } from '@ant-design/icons';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Button, Input } from 'antd';
+import { Controller, useForm } from 'react-hook-form';
 
 import { useAppDispatch } from '@/helpers/store';
 
 import { formsThunkActions } from '../../../model/actions';
-
 import {
-  formNameSchema,
   FormNameSchemaFields,
+  formNameSchema,
 } from '../../schemas/form-name-schema';
 
 import styles from './styles.module.scss';
@@ -57,11 +55,7 @@ export const FormAdding = () => {
           name="name"
           control={control}
         />
-        <Button
-          type="link"
-          htmlType="submit"
-          icon={<PlusOutlined />}
-        >
+        <Button type="link" htmlType="submit" icon={<PlusOutlined />}>
           Добавить
         </Button>
       </div>

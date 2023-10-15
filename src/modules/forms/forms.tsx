@@ -1,6 +1,5 @@
-import { FormView } from './form-view';
 import { FormGenerator } from './form-generator';
-
+import { FormView } from './form-view';
 import styles from './styles.module.scss';
 
 export const Forms = () => {

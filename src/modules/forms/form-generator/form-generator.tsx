@@ -1,12 +1,12 @@
-import { useState } from 'react';
 import { Typography } from 'antd';
+import { useState } from 'react';
 
 import { useAppSelector } from '@/helpers/store';
 
 import { formsSelectors } from '../model/list/selectors';
 
-import { FormSelectionWithAdding } from './components/form-selection-with-adding';
 import { FormAdding } from './components/form-adding';
+import { FormSelectionWithAdding } from './components/form-selection-with-adding';
 import { FormSettings } from './components/form-settings';
 import styles from './styles.module.scss';
 

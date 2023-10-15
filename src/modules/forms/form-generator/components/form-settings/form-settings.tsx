@@ -1,4 +1,4 @@
-import { Button, Typography, Modal } from 'antd';
+import { Button, Modal, Typography } from 'antd';
 
 import { useAppDispatch, useAppSelector } from '@/helpers/store';
 

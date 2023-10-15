@@ -1,11 +1,11 @@
 import { getDefaultMiddleware } from '@reduxjs/toolkit';
 import {
   FLUSH,
-  REHYDRATE,
   PAUSE,
   PERSIST,
   PURGE,
   REGISTER,
+  REHYDRATE,
 } from 'redux-persist';
 
 import { singletonApis } from '../../signleton-apis';

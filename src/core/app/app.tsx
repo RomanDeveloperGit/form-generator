@@ -4,7 +4,6 @@ import { Notifications } from '@/modules/notifications';
 export const App = () => {
   // sentry ( повешать листенер на все реджекты )
   // api ???
-  // eslint sort imports
 
   return (
     <div>

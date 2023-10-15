@@ -8,7 +8,7 @@ const listenerMiddleware = createListenerMiddleware({
   extra: singletonApis,
 });
 
-startFormsListeners(listenerMiddleware as AppListenerMiddleware)
+startFormsListeners(listenerMiddleware as AppListenerMiddleware);
 // START OTHER LISTENERS ...
 
 export { listenerMiddleware };
