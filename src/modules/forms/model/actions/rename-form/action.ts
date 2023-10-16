@@ -4,15 +4,15 @@ import { createClientErrorObject } from '@/utils/errors';
 
 import { formsSelectors } from '../../selectors';
 import { formsActions } from '../../slice';
-import { Form } from '../../types';
+import { FormId } from '../../types';
 
 type Input = {
-  id: Form['id'];
-  newName: Form['name'];
+  id: FormId;
+  newName: string;
 };
 
 type Output = Input & {
-  prevName: Form['name'];
+  prevName: string;
 };
 
 export const renameForm = createAppAsyncThunk<Output, Input>(

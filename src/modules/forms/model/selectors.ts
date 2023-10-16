@@ -1,9 +1,11 @@
 import { createSelector } from '@reduxjs/toolkit';
 
+import { FormId } from './types';
+
 const getAllForms = (state: AppState) => state.forms;
 
 const getFormById = createSelector(
-  (_: AppState, id: string) => id,
+  (_: AppState, id: FormId) => id,
   getAllForms,
   (id, forms) => forms.find((form) => form.id === id),
 );
@@ -12,7 +14,7 @@ const getFormNameById = createSelector(getFormById, (form) => form?.name);
 const getFormFieldsById = createSelector(getFormById, (form) => form?.fields);
 
 const isFormExistsById = createSelector(
-  (_: AppState, id: string) => id,
+  (_: AppState, id: FormId) => id,
   getAllForms,
   (id, forms) => forms.some((form) => form.id === id),
 );

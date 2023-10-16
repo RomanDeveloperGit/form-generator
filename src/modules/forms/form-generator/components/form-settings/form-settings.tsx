@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '@/helpers/store';
 
 import { DrawerSize } from '@/constants/element-sizes';
 
+import { FormId } from '@/modules/forms/model/types';
 import { FieldError } from '@/modules/ui/field-error/field-error';
 
 import { formsThunkActions } from '../../../model/actions';
@@ -18,7 +19,7 @@ import {
 
 import styles from './styles.module.scss';
 
-export const FormSettings = ({ formId }: { formId: string }) => {
+export const FormSettings = ({ formId }: { formId: FormId }) => {
   const dispatch = useAppDispatch();
   const formName = useAppSelector((state) =>
     formsSelectors.getFormNameById(state, formId),

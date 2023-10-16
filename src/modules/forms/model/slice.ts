@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { Field, Form } from './types';
+import { Field, Form, FormId } from './types';
 
 const INITIAL_STATE: Form[] = [];
 
@@ -13,7 +13,7 @@ export const { reducer: formsReducer, actions: formsActions } = createSlice({
     },
     renameForm(
       state,
-      action: PayloadAction<{ id: Form['id']; newName: Form['name'] }>,
+      action: PayloadAction<{ id: FormId; newName: string }>,
     ) {
       const formIndex = state.findIndex(
         (form) => form.id === action.payload.id,
@@ -23,7 +23,7 @@ export const { reducer: formsReducer, actions: formsActions } = createSlice({
         state[formIndex].name = action.payload.newName;
       }
     },
-    deleteForm(state, action: PayloadAction<Form['id']>) {
+    deleteForm(state, action: PayloadAction<FormId>) {
       const formIndex = state.findIndex((form) => form.id === action.payload);
 
       if (formIndex !== -1) {
@@ -32,7 +32,7 @@ export const { reducer: formsReducer, actions: formsActions } = createSlice({
     },
     createField(
       state,
-      action: PayloadAction<{ formId: Form['id']; field: Field }>,
+      action: PayloadAction<{ formId: FormId; field: Field }>,
     ) {
       const formIndex = state.findIndex(
         (form) => form.id === action.payload.formId,
@@ -44,7 +44,7 @@ export const { reducer: formsReducer, actions: formsActions } = createSlice({
         state[formIndex].fields.push(action.payload.field);
       }
     },
-    deleteAllFields(state, action: PayloadAction<{ formId: Form['id'] }>) {
+    deleteAllFields(state, action: PayloadAction<{ formId: FormId }>) {
       const formIndex = state.findIndex(
         (form) => form.id === action.payload.formId,
       );

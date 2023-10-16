@@ -4,9 +4,9 @@ import { createClientErrorObject } from '@/utils/errors';
 
 import { formsSelectors } from '../../selectors';
 import { formsActions } from '../../slice';
-import { Form } from '../../types';
+import { Form, FormId } from '../../types';
 
-export const deleteForm = createAppAsyncThunk<Form, Form['id']>(
+export const deleteForm = createAppAsyncThunk<Form, FormId>(
   'forms/delete',
   async (formId, thunkApi) => {
     try {

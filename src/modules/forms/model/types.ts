@@ -1,5 +1,8 @@
+export type FormId = string;
+export type FieldId = string;
+
 export type Field = {
-  id: string;
+  id: FieldId;
   name: string;
   label: string;
   placeholder?: string;
@@ -7,7 +10,7 @@ export type Field = {
 };
 
 export type Form = {
-  id: string;
+  id: FormId;
   name: string;
   fields: Field[];
 };

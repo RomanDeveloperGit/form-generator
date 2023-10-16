@@ -1,6 +1,6 @@
-import { Form } from '../../../model/types';
+import { FormId } from '../../../model/types';
 
 export type FormOption = {
-  label: Form['name'];
-  value: Form['id'];
+  label: string;
+  value: FormId;
 };

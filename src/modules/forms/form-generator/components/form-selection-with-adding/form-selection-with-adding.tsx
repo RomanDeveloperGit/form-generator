@@ -2,6 +2,8 @@ import { Divider, Empty, Select } from 'antd';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
+import { FormId } from '@/modules/forms/model/types';
+
 import { formsSelectors } from '../../../model/selectors';
 
 import styles from './styles.module.scss';
@@ -14,8 +16,8 @@ export const FormSelectionWithAdding = ({
   onFormSelect,
 }: {
   formAddingSlot: JSX.Element;
-  selectedFormId: string;
-  onFormSelect: (formId: string) => void;
+  selectedFormId: FormId;
+  onFormSelect: (formId: FormId) => void;
 }) => {
   const forms = useSelector(formsSelectors.getAllForms);
   const options = useMemo(() => convertFormsToOptions(forms), [forms]);
