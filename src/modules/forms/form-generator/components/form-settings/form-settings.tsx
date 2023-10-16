@@ -7,6 +7,8 @@ import { useAppDispatch, useAppSelector } from '@/helpers/store';
 
 import { DrawerSize } from '@/constants/element-sizes';
 
+import { FieldError } from '@/modules/ui/field-error/field-error';
+
 import { formsThunkActions } from '../../../model/actions';
 import { formsSelectors } from '../../../model/selectors';
 import {
@@ -109,9 +111,7 @@ export const FormSettings = ({ formId }: { formId: string }) => {
               Сохранить
             </Button>
           </div>
-          {errors.name?.message && (
-            <p className={styles.fieldError}>{errors.name?.message}</p>
-          )}
+          <FieldError message={errors.name?.message} />
         </form>
       </Drawer>
     </>

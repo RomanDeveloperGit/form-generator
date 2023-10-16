@@ -5,6 +5,8 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { useAppDispatch } from '@/helpers/store';
 
+import { FieldError } from '@/modules/ui/field-error';
+
 import { formsThunkActions } from '../../../model/actions';
 import {
   FormNameSchemaFields,
@@ -59,10 +61,7 @@ export const FormAdding = () => {
           Добавить
         </Button>
       </div>
-      {/* Для такого элемента отдельный UI-компонент сделать */}
-      {errors.name?.message && (
-        <p className={styles.fieldError}>{errors.name?.message}</p>
-      )}
+      <FieldError message={errors.name?.message} />
     </form>
   );
 };

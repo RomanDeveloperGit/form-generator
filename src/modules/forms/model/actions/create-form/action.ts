@@ -8,7 +8,7 @@ import { formsSelectors } from '../../selectors';
 import { formsActions } from '../../slice';
 import { Form } from '../../types';
 
-export const createForm = createAppAsyncThunk<Form, string>(
+export const createForm = createAppAsyncThunk<Form, Form['name']>(
   'forms/create',
   async (formName, thunkApi) => {
     try {

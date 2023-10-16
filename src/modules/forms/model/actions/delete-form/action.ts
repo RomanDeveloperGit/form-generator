@@ -6,11 +6,11 @@ import { formsSelectors } from '../../selectors';
 import { formsActions } from '../../slice';
 import { Form } from '../../types';
 
-export const deleteForm = createAppAsyncThunk<Form, string>(
+export const deleteForm = createAppAsyncThunk<Form, Form['id']>(
   'forms/delete',
   async (formId, thunkApi) => {
     try {
-      const state = thunkApi.getState() as AppState;
+      const state = thunkApi.getState();
       const form = formsSelectors.getFormById(state, formId);
 
       if (!form) throw createClientErrorObject('Формы не существует.');

@@ -19,7 +19,7 @@ export const renameForm = createAppAsyncThunk<Output, Input>(
   'forms/rename',
   async (formDraft, thunkApi) => {
     try {
-      const state = thunkApi.getState() as AppState;
+      const state = thunkApi.getState();
       const prevName = formsSelectors.getFormNameById(state, formDraft.id);
       const isFormExistsByName = formsSelectors.isFormExistsByName(
         state,
