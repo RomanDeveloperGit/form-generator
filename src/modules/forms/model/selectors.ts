@@ -7,7 +7,9 @@ const getFormById = createSelector(
   getAllForms,
   (id, forms) => forms.find((form) => form.id === id),
 );
+
 const getFormNameById = createSelector(getFormById, (form) => form?.name);
+const getFormFieldsById = createSelector(getFormById, (form) => form?.fields);
 
 const isFormExistsById = createSelector(
   (_: AppState, id: string) => id,
@@ -25,6 +27,7 @@ export const formsSelectors = {
   getAllForms,
   getFormById,
   getFormNameById,
+  getFormFieldsById,
   isFormExistsById,
   isFormExistsByName,
 };

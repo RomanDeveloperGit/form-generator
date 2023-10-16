@@ -2,7 +2,7 @@ import { Divider, Empty, Select } from 'antd';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
-import { formsSelectors } from '../../../model/list/selectors';
+import { formsSelectors } from '../../../model/selectors';
 
 import styles from './styles.module.scss';
 import { FormOption } from './types';

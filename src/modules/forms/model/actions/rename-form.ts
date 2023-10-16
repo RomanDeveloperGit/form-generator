@@ -2,8 +2,8 @@ import { createAppAsyncThunk } from '@/helpers/store';
 
 import { createClientErrorObject } from '@/utils/errors';
 
-import { formsSelectors } from '../list/selectors';
-import { formsListActions } from '../list/slice';
+import { formsSelectors } from '../selectors';
+import { formsActions } from '../slice';
 import { Form } from '../types';
 
 type Input = {
@@ -34,12 +34,7 @@ export const renameForm = createAppAsyncThunk<Output, Input>(
       if (isFormExistsByName)
         throw createClientErrorObject('Указанное имя формы уже занято.');
 
-      thunkApi.dispatch(
-        formsListActions.renameForm({
-          id: formDraft.id,
-          name: formDraft.newName,
-        }),
-      );
+      thunkApi.dispatch(formsActions.renameForm(formDraft));
 
       return thunkApi.fulfillWithValue({
         ...formDraft,

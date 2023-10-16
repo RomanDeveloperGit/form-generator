@@ -1,8 +1,9 @@
 import { createAppAsyncThunk } from '@/helpers/store';
+
 import { createClientErrorObject } from '@/utils/errors';
 
-import { formsListActions } from '../list/slice';
-import { formsSelectors } from '../list/selectors';
+import { formsSelectors } from '../selectors';
+import { formsActions } from '../slice';
 import { Form } from '../types';
 
 export const deleteForm = createAppAsyncThunk<Form, string>(
@@ -14,7 +15,7 @@ export const deleteForm = createAppAsyncThunk<Form, string>(
 
       if (!form) throw createClientErrorObject('Формы не существует.');
 
-      thunkApi.dispatch(formsListActions.deleteForm(formId));
+      thunkApi.dispatch(formsActions.deleteForm(formId));
 
       return thunkApi.fulfillWithValue(form);
     } catch (error) {

@@ -1,6 +1,6 @@
 export type Field = {
   id: string;
-  name: string; // просто служебное поле для поиска
+  name: string;
   label: string;
   placeholder?: string;
   defaultValue?: unknown;
@@ -9,5 +9,5 @@ export type Field = {
 export type Form = {
   id: string;
   name: string;
-  fields?: Field[];
+  fields: Field[];
 };

@@ -1,10 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import { createAppAsyncThunk } from '@/helpers/store';
+
 import { createClientErrorObject } from '@/utils/errors';
 
-import { formsListActions } from '../list/slice';
-import { formsSelectors } from '../list/selectors';
+import { formsSelectors } from '../selectors';
+import { formsActions } from '../slice';
 import { Form } from '../types';
 
 export const createForm = createAppAsyncThunk<Form, string>(
@@ -26,7 +27,7 @@ export const createForm = createAppAsyncThunk<Form, string>(
         fields: [],
       };
 
-      thunkApi.dispatch(formsListActions.createForm(form));
+      thunkApi.dispatch(formsActions.createForm(form));
 
       return thunkApi.fulfillWithValue(form);
     } catch (error) {

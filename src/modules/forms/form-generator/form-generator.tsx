@@ -3,8 +3,9 @@ import { useState } from 'react';
 
 import { useAppSelector } from '@/helpers/store';
 
-import { formsSelectors } from '../model/list/selectors';
+import { formsSelectors } from '../model/selectors';
 
+import { FieldsSettings } from './components/fields-settings';
 import { FormAdding } from './components/form-adding';
 import { FormSelectionWithAdding } from './components/form-selection-with-adding';
 import { FormSettings } from './components/form-settings';
@@ -32,7 +33,12 @@ export const FormGenerator = () => {
         selectedFormId={isFormExists ? selectedFormId : ''}
         onFormSelect={handleFormSelect}
       />
-      {isFormExists && <FormSettings formId={selectedFormId} />}
+      {isFormExists && (
+        <>
+          <FormSettings formId={selectedFormId} />
+          <FieldsSettings />
+        </>
+      )}
     </div>
   );
 };

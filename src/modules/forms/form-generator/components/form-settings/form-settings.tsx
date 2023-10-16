@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/helpers/store';
 import { DrawerSize } from '@/constants/element-sizes';
 
 import { formsThunkActions } from '../../../model/actions';
-import { formsSelectors } from '../../../model/list/selectors';
+import { formsSelectors } from '../../../model/selectors';
 import {
   FormNameSchemaFields,
   formNameSchema,

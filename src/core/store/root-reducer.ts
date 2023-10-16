@@ -1,7 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
-import { formsListReducer } from '@/modules/forms';
+import { formsReducer } from '@/modules/forms';
 
 export const rootReducer = combineReducers({
-  forms: formsListReducer,
+  forms: formsReducer,
 });
