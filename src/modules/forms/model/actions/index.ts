@@ -1,6 +1,6 @@
-import { createForm } from './create-form';
-import { deleteForm } from './delete-form';
-import { renameForm } from './rename-form';
+import { createForm } from './create-form/action';
+import { deleteForm } from './delete-form/action';
+import { renameForm } from './rename-form/action';
 
 export const formsThunkActions = {
   createForm,

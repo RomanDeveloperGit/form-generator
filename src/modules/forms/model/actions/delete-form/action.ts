@@ -2,9 +2,9 @@ import { createAppAsyncThunk } from '@/helpers/store';
 
 import { createClientErrorObject } from '@/utils/errors';
 
-import { formsSelectors } from '../selectors';
-import { formsActions } from '../slice';
-import { Form } from '../types';
+import { formsSelectors } from '../../selectors';
+import { formsActions } from '../../slice';
+import { Form } from '../../types';
 
 export const deleteForm = createAppAsyncThunk<Form, string>(
   'forms/delete',
