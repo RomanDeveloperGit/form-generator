@@ -28,8 +28,7 @@ export const FormSettings = ({ formId }: { formId: FormId }) => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormNameSchema>({
-    mode: 'onChange',
-    reValidateMode: 'onChange',
+    mode: 'onSubmit',
     resolver: zodResolver(formNameSchema),
     values: {
       name: formName!,

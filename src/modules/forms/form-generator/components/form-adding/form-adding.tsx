@@ -21,8 +21,7 @@ export const FormAdding = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormNameSchema>({
-    mode: 'onChange',
-    reValidateMode: 'onChange',
+    mode: 'onSubmit',
     resolver: zodResolver(formNameSchema),
     defaultValues: {
       name: '',

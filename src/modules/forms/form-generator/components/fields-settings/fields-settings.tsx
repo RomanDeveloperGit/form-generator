@@ -12,6 +12,7 @@ import { FormId } from '@/modules/forms/model/types';
 import { ValidationError } from '@/modules/ui/validation-error';
 
 import { FieldSchema, fieldSchema } from '../../schemas/field-schema';
+import { FieldSettings } from '../field-settings';
 
 import styles from './styles.module.scss';
 
@@ -20,6 +21,9 @@ export const FieldsSettings = ({ formId }: { formId: FormId }) => {
   const formName = useAppSelector((state) =>
     formsSelectors.getFormNameById(state, formId),
   );
+  const fields = useAppSelector((state) =>
+    formsSelectors.getFormFieldsById(state, formId),
+  );
 
   const {
     control,
@@ -27,8 +31,7 @@ export const FieldsSettings = ({ formId }: { formId: FormId }) => {
     handleSubmit,
     formState: { errors },
   } = useForm<FieldSchema>({
-    mode: 'onChange',
-    reValidateMode: 'onChange',
+    mode: 'onSubmit',
     resolver: zodResolver(fieldSchema),
     defaultValues: {
       name: '',
@@ -81,16 +84,25 @@ export const FieldsSettings = ({ formId }: { formId: FormId }) => {
     ? 'error'
     : undefined;
 
+  console.log('FIELDSSSSSSSSSSSSSSSSSs');
+
   return (
     <>
-      <div className={styles.container}>
-        <Typography.Title level={4}>Поля</Typography.Title>
-        <div className={styles.buttonBox}>
-          <Button onClick={handleCreateFieldButtonClick}>Добавить новое</Button>
-          <Button onClick={handleDeleteAllFieldsButtonClick}>
-            Удалить все
-          </Button>
+      <div>
+        <div className={styles.top}>
+          <Typography.Title level={4}>Поля</Typography.Title>
+          <div className={styles.buttonBox}>
+            <Button onClick={handleCreateFieldButtonClick}>
+              Добавить новое
+            </Button>
+            <Button onClick={handleDeleteAllFieldsButtonClick}>
+              Удалить все
+            </Button>
+          </div>
         </div>
+        {fields?.map((field) => (
+          <FieldSettings fieldId={field.id} key={field.id} />
+        ))}
       </div>
       <Drawer
         title={`Добавление поля для формы "${formName}"`}
