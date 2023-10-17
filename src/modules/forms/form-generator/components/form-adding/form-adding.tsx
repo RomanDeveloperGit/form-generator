@@ -5,13 +5,10 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { useAppDispatch } from '@/helpers/store';
 
-import { FieldError } from '@/modules/ui/field-error';
+import { ValidationError } from '@/modules/ui/validation-error';
 
 import { formsThunkActions } from '../../../model/actions';
-import {
-  FormNameSchemaFields,
-  formNameSchema,
-} from '../../schemas/form-name-schema';
+import { FormNameSchema, formNameSchema } from '../../schemas/form-name-schema';
 
 import styles from './styles.module.scss';
 
@@ -23,7 +20,7 @@ export const FormAdding = () => {
     reset,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormNameSchemaFields>({
+  } = useForm<FormNameSchema>({
     mode: 'onChange',
     reValidateMode: 'onChange',
     resolver: zodResolver(formNameSchema),
@@ -32,8 +29,8 @@ export const FormAdding = () => {
     },
   });
 
-  const handleCreateFormSubmit = handleSubmit(async (fields) => {
-    const result = await dispatch(formsThunkActions.createForm(fields.name));
+  const handleCreateFormSubmit = handleSubmit(async (data) => {
+    const result = await dispatch(formsThunkActions.createForm(data.name));
 
     if (result.meta.requestStatus === 'fulfilled') {
       reset();
@@ -61,7 +58,7 @@ export const FormAdding = () => {
           Добавить
         </Button>
       </div>
-      <FieldError message={errors.name?.message} />
+      <ValidationError message={errors.name?.message} />
     </form>
   );
 };

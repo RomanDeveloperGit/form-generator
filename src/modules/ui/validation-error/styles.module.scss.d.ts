@@ -1,4 +1,4 @@
 declare const classNames: {
-  readonly fieldError: 'fieldError';
+  readonly validationError: 'validationError';
 };
 export = classNames;

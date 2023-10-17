@@ -8,6 +8,7 @@ export enum MetricAction {
   Create = 'Create',
   Edit = 'Edit',
   Delete = 'Delete',
+  MassDelete = 'MassDelete',
 }
 
 export enum MetricType {

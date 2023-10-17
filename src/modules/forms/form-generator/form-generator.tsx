@@ -37,7 +37,7 @@ export const FormGenerator = () => {
       {isFormExists && (
         <>
           <FormSettings formId={selectedFormId} />
-          <FieldsSettings />
+          <FieldsSettings formId={selectedFormId} />
         </>
       )}
     </div>

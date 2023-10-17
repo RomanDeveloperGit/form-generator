@@ -4,9 +4,8 @@ export type FieldId = string;
 export type Field = {
   id: FieldId;
   name: string;
-  label: string;
-  placeholder?: string;
-  defaultValue?: unknown;
+  placeholder: string;
+  defaultValue: string;
 };
 
 export type Form = {

@@ -30,6 +30,7 @@ export const FormSelectionWithAdding = ({
       .toLowerCase()
       .localeCompare((optionB?.label ?? '').toLowerCase());
 
+      // onClose + reset
   return (
     <Select
       className={styles.container}

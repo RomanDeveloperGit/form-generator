@@ -8,14 +8,11 @@ import { useAppDispatch, useAppSelector } from '@/helpers/store';
 import { DrawerSize } from '@/constants/element-sizes';
 
 import { FormId } from '@/modules/forms/model/types';
-import { FieldError } from '@/modules/ui/field-error/field-error';
+import { ValidationError } from '@/modules/ui/validation-error/validation-error';
 
 import { formsThunkActions } from '../../../model/actions';
 import { formsSelectors } from '../../../model/selectors';
-import {
-  FormNameSchemaFields,
-  formNameSchema,
-} from '../../schemas/form-name-schema';
+import { FormNameSchema, formNameSchema } from '../../schemas/form-name-schema';
 
 import styles from './styles.module.scss';
 
@@ -30,22 +27,22 @@ export const FormSettings = ({ formId }: { formId: FormId }) => {
     reset,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormNameSchemaFields>({
+  } = useForm<FormNameSchema>({
     mode: 'onChange',
     reValidateMode: 'onChange',
     resolver: zodResolver(formNameSchema),
-    defaultValues: {
-      name: '',
+    values: {
+      name: formName!,
     },
   });
 
-  const [isRenameDrawerOpen, setRenameDrawerOpen] = useState(false);
+  const [isRenameFormDrawerOpen, setRenameFormDrawerOpen] = useState(false);
 
-  const handleRenameButtonClick = () => {
-    setRenameDrawerOpen(true);
+  const handleRenameFormButtonClick = () => {
+    setRenameFormDrawerOpen(true);
   };
 
-  const handleDeleteButtonClick = () => {
+  const handleDeleteFormButtonClick = () => {
     Modal.confirm({
       title: `Вы действительно хотите удалить форму "${formName}"?`,
       content: 'Удалится форма и все прикреплённые к ней поля.',
@@ -58,21 +55,21 @@ export const FormSettings = ({ formId }: { formId: FormId }) => {
     });
   };
 
-  const handleRenameDrawerClose = () => {
-    setRenameDrawerOpen(false);
+  const handleRenameFormDrawerClose = () => {
+    setRenameFormDrawerOpen(false);
+    reset();
   };
 
-  const handleRenameFormSubmit = handleSubmit(async (fields) => {
+  const handleRenameFormSubmit = handleSubmit(async (data) => {
     const result = await dispatch(
       formsThunkActions.renameForm({
         id: formId,
-        newName: fields.name,
+        newName: data.name,
       }),
     );
 
     if (result.meta.requestStatus === 'fulfilled') {
-      handleRenameDrawerClose();
-      reset();
+      handleRenameFormDrawerClose();
     }
   });
 
@@ -83,16 +80,16 @@ export const FormSettings = ({ formId }: { formId: FormId }) => {
       <div className={styles.container}>
         <Typography.Title level={4}>Действия</Typography.Title>
         <div className={styles.buttonBox}>
-          <Button onClick={handleRenameButtonClick}>Переименовать</Button>
-          <Button onClick={handleDeleteButtonClick}>Удалить</Button>
+          <Button onClick={handleRenameFormButtonClick}>Переименовать</Button>
+          <Button onClick={handleDeleteFormButtonClick}>Удалить</Button>
         </div>
       </div>
       <Drawer
         title={`Редактирование формы "${formName}"`}
         width={DrawerSize.Default}
         placement="right"
-        open={isRenameDrawerOpen}
-        onClose={handleRenameDrawerClose}
+        open={isRenameFormDrawerOpen}
+        onClose={handleRenameFormDrawerClose}
       >
         <form onSubmit={handleRenameFormSubmit}>
           <div className={styles.controlBox}>
@@ -112,7 +109,7 @@ export const FormSettings = ({ formId }: { formId: FormId }) => {
               Сохранить
             </Button>
           </div>
-          <FieldError message={errors.name?.message} />
+          <ValidationError message={errors.name?.message} />
         </form>
       </Drawer>
     </>

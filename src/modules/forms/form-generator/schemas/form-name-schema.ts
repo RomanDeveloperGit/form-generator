@@ -1,16 +1,23 @@
 import { z } from 'zod';
 
+import { StringValidationLength } from '@/constants/validations';
+
 export const formNameSchema = z.object({
   name: z
     .string({
       required_error: 'Название формы не может быть пустым.',
     })
-    .min(3, {
-      message: 'Название формы должно содержать мининимум 3 символа.',
-    })
-    .max(50, {
-      message: 'Название формы должно содержать максимум 50 символов.',
-    }),
+    .refine(
+      (value) => {
+        return (
+          value.length >= StringValidationLength.Min &&
+          value.length <= StringValidationLength.Max
+        );
+      },
+      {
+        message: `Название формы должно содержать от ${StringValidationLength.Min} до ${StringValidationLength.Max} символов.`,
+      },
+    ),
 });
 
-export type FormNameSchemaFields = z.infer<typeof formNameSchema>;
+export type FormNameSchema = z.infer<typeof formNameSchema>;

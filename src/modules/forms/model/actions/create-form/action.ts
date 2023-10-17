@@ -9,7 +9,7 @@ import { formsActions } from '../../slice';
 import { Form } from '../../types';
 
 export const createForm = createAppAsyncThunk<Form, string>(
-  'forms/create',
+  'forms/createForm',
   async (formName, thunkApi) => {
     try {
       const state = thunkApi.getState();
@@ -19,7 +19,7 @@ export const createForm = createAppAsyncThunk<Form, string>(
       );
 
       if (isFormExistsByName)
-        throw createClientErrorObject('Указанное имя формы уже занято.');
+        throw createClientErrorObject('Указанное название формы уже занято.');
 
       const form: Form = {
         id: uuidv4(),

@@ -16,28 +16,33 @@ type Output = Input & {
 };
 
 export const renameForm = createAppAsyncThunk<Output, Input>(
-  'forms/rename',
-  async (formDraft, thunkApi) => {
+  'forms/renameForm',
+  async (dto, thunkApi) => {
     try {
       const state = thunkApi.getState();
-      const prevName = formsSelectors.getFormNameById(state, formDraft.id);
+      const prevName = formsSelectors.getFormNameById(state, dto.id);
       const isFormExistsByName = formsSelectors.isFormExistsByName(
         state,
-        formDraft.newName,
+        dto.newName,
       );
 
       if (!prevName)
         throw createClientErrorObject(
-          'Неизвестная ошибка. Предыдущее имя не найдено.',
+          'Неизвестная ошибка. Предыдущее название не найдено.',
+        );
+
+      if (prevName === dto.newName)
+        throw createClientErrorObject(
+          'Указанное название формы идентично существующему.',
         );
 
       if (isFormExistsByName)
-        throw createClientErrorObject('Указанное имя формы уже занято.');
+        throw createClientErrorObject('Указанное название формы уже занято.');
 
-      thunkApi.dispatch(formsActions.renameForm(formDraft));
+      thunkApi.dispatch(formsActions.renameForm(dto));
 
       return thunkApi.fulfillWithValue({
-        ...formDraft,
+        ...dto,
         prevName,
       });
     } catch (error) {
