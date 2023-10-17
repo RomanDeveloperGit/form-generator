@@ -16,7 +16,13 @@ import { FormNameSchema, formNameSchema } from '../../schemas/form-name-schema';
 
 import styles from './styles.module.scss';
 
-export const FormSettings = ({ formId }: { formId: FormId }) => {
+export const FormActions = ({
+  formId,
+  onDeleteSuccess,
+}: {
+  formId: FormId;
+  onDeleteSuccess: () => void;
+}) => {
   const dispatch = useAppDispatch();
   const formName = useAppSelector((state) =>
     formsSelectors.getFormNameById(state, formId),
@@ -50,6 +56,7 @@ export const FormSettings = ({ formId }: { formId: FormId }) => {
       cancelText: 'Отменить',
       onOk() {
         dispatch(formsThunkActions.deleteForm(formId));
+        onDeleteSuccess();
       },
     });
   };
@@ -60,16 +67,16 @@ export const FormSettings = ({ formId }: { formId: FormId }) => {
   };
 
   const handleRenameFormSubmit = handleSubmit(async (data) => {
-    const result = await dispatch(
-      formsThunkActions.renameForm({
-        id: formId,
-        newName: data.name,
-      }),
-    );
+    try {
+      await dispatch(
+        formsThunkActions.renameForm({
+          id: formId,
+          newName: data.name,
+        }),
+      ).unwrap();
 
-    if (result.meta.requestStatus === 'fulfilled') {
       handleRenameFormDrawerClose();
-    }
+    } catch (error) {}
   });
 
   const nameInputStatus = errors.name?.message ? 'error' : undefined;

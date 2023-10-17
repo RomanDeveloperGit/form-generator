@@ -1,5 +1,5 @@
 import { Divider, Empty, Select } from 'antd';
-import { useMemo } from 'react';
+import { ReactElement, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { FormId } from '@/modules/forms/model/types';
@@ -10,12 +10,12 @@ import styles from './styles.module.scss';
 import { FormOption } from './types';
 import { convertFormsToOptions } from './utils';
 
-export const FormSelectionWithAdding = ({
-  formAddingSlot,
+export const FormSelection = ({
+  formCreationSlot,
   selectedFormId,
   onFormSelect,
 }: {
-  formAddingSlot: JSX.Element;
+  formCreationSlot: JSX.Element;
   selectedFormId: FormId;
   onFormSelect: (formId: FormId) => void;
 }) => {
@@ -30,9 +30,28 @@ export const FormSelectionWithAdding = ({
       .toLowerCase()
       .localeCompare((optionB?.label ?? '').toLowerCase());
 
-      // onClose + reset
+  const handleClear = () => {
+    onFormSelect('');
+  };
+
+  const notFoundContent = (
+    <Empty
+      image={Empty.PRESENTED_IMAGE_SIMPLE}
+      description="Ничего не найдено."
+    />
+  );
+
+  const dropdownRender = (menu: ReactElement) => (
+    <>
+      <div className={styles.menu}>{menu}</div>
+      <Divider className={styles.divider} />
+      {formCreationSlot}
+    </>
+  );
+
   return (
     <Select
+      allowClear={true}
       className={styles.container}
       showSearch={true}
       filterOption={filterOption}
@@ -40,20 +59,10 @@ export const FormSelectionWithAdding = ({
       placeholder="Выберите форму"
       value={selectedFormId}
       onSelect={onFormSelect}
+      onClear={handleClear}
       options={options}
-      notFoundContent={
-        <Empty
-          image={Empty.PRESENTED_IMAGE_SIMPLE}
-          description="Ничего не найдено."
-        />
-      }
-      dropdownRender={(menu) => (
-        <>
-          <div className={styles.menu}>{menu}</div>
-          <Divider className={styles.divider} />
-          {formAddingSlot}
-        </>
-      )}
+      notFoundContent={notFoundContent}
+      dropdownRender={dropdownRender}
     />
   );
 };

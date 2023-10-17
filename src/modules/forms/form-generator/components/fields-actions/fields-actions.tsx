@@ -12,18 +12,22 @@ import { FormId } from '@/modules/forms/model/types';
 import { ValidationError } from '@/modules/ui/validation-error';
 
 import { FieldSchema, fieldSchema } from '../../schemas/field-schema';
-import { FieldSettings } from '../field-settings';
 
 import styles from './styles.module.scss';
 
-export const FieldsSettings = ({ formId }: { formId: FormId }) => {
+export const FieldsActions = ({ formId }: { formId: FormId }) => {
   const dispatch = useAppDispatch();
   const formName = useAppSelector((state) =>
     formsSelectors.getFormNameById(state, formId),
   );
-  const fields = useAppSelector((state) =>
-    formsSelectors.getFormFieldsById(state, formId),
-  );
+  // const fields = useAppSelector((state) =>
+  //   formsSelectors.getFormFieldsById(state, formId),
+  // );
+  {
+    /* {fields?.map((field) => (
+          <FieldSettings formId={formId} fieldId={field.id} key={field.id} />
+        ))} */
+  }
 
   const {
     control,
@@ -64,16 +68,16 @@ export const FieldsSettings = ({ formId }: { formId: FormId }) => {
   };
 
   const handleCreateFieldSubmit = handleSubmit(async (data) => {
-    const result = await dispatch(
-      formsThunkActions.createField({
-        formId,
-        field: data,
-      }),
-    );
+    try {
+      await dispatch(
+        formsThunkActions.createField({
+          formId,
+          field: data,
+        }),
+      );
 
-    if (result.meta.requestStatus === 'fulfilled') {
       handleCreateFieldDrawerClose();
-    }
+    } catch (error) {}
   });
 
   const nameInputStatus = errors.name?.message ? 'error' : undefined;
@@ -100,9 +104,6 @@ export const FieldsSettings = ({ formId }: { formId: FormId }) => {
             </Button>
           </div>
         </div>
-        {fields?.map((field) => (
-          <FieldSettings fieldId={field.id} key={field.id} />
-        ))}
       </div>
       <Drawer
         title={`Добавление поля для формы "${formName}"`}

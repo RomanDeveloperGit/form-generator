@@ -5,6 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { useAppDispatch } from '@/helpers/store';
 
+import { FormId } from '@/modules/forms/model/types';
 import { ValidationError } from '@/modules/ui/validation-error';
 
 import { formsThunkActions } from '../../../model/actions';
@@ -12,7 +13,11 @@ import { FormNameSchema, formNameSchema } from '../../schemas/form-name-schema';
 
 import styles from './styles.module.scss';
 
-export const FormAdding = () => {
+export const FormCreation = ({
+  onCreateSuccess,
+}: {
+  onCreateSuccess: (formId: FormId) => void;
+}) => {
   const dispatch = useAppDispatch();
 
   const {
@@ -29,11 +34,14 @@ export const FormAdding = () => {
   });
 
   const handleCreateFormSubmit = handleSubmit(async (data) => {
-    const result = await dispatch(formsThunkActions.createForm(data.name));
+    try {
+      const form = await dispatch(
+        formsThunkActions.createForm(data.name),
+      ).unwrap();
 
-    if (result.meta.requestStatus === 'fulfilled') {
       reset();
-    }
+      onCreateSuccess(form.id);
+    } catch (error) {}
   });
 
   const nameInputStatus = errors.name?.message ? 'error' : undefined;

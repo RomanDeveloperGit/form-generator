@@ -14,6 +14,7 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    'no-empty': ['error', { allowEmptyCatch: true }],
     'import/order': [
       'error',
       {

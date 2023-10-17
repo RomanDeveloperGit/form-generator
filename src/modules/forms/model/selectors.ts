@@ -1,11 +1,11 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-import { FormId } from './types';
+import { FieldId, FormId } from './types';
 
 const getAllForms = (state: AppState) => state.forms;
 
 const getFormById = createSelector(
-  (_: AppState, id: FormId) => id,
+  (_state: AppState, id: FormId) => id,
   getAllForms,
   (id, forms) => forms.find((form) => form.id === id),
 );
@@ -16,15 +16,20 @@ const getFormFieldsCountById = createSelector(
   getFormFieldsById,
   (fields) => fields?.length,
 );
+const getFormFieldById = createSelector(
+  (_state: AppState, _formId: FormId, fieldId: FieldId) => fieldId,
+  getFormFieldsById,
+  (fieldId, fields) => fields?.find((field) => field.id === fieldId),
+);
 
 const isFormExistsById = createSelector(
-  (_: AppState, id: FormId) => id,
+  (_state: AppState, id: FormId) => id,
   getAllForms,
   (id, forms) => forms.some((form) => form.id === id),
 );
 
 const isFormExistsByName = createSelector(
-  (_: AppState, name: string) => name,
+  (_state: AppState, name: string) => name,
   getAllForms,
   (name, forms) => forms.some((form) => form.name === name),
 );
@@ -35,6 +40,7 @@ export const formsSelectors = {
   getFormNameById,
   getFormFieldsById,
   getFormFieldsCountById,
+  getFormFieldById,
   isFormExistsById,
   isFormExistsByName,
 };
