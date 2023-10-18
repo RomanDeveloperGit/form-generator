@@ -1,6 +1,9 @@
-import { Form } from '../../../model/types';
+import { Form, FormId } from '../../../model/types';
 
-import { FormOption } from './types';
+export type FormOption = {
+  label: string;
+  value: FormId;
+};
 
 type ConvertFormsToOptionsFunction = (forms: Form[]) => FormOption[];
 

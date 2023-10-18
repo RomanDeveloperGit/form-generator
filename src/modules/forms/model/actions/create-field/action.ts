@@ -24,11 +24,19 @@ export const createField = createAppAsyncThunk<Output, Input>(
     try {
       const state = thunkApi.getState();
       const form = formsSelectors.getFormById(state, dto.formId);
+      const isFieldExistsByName = formsSelectors.isFieldExistsByName(
+        state,
+        dto.formId,
+        dto.field.name,
+      );
 
       if (!form)
         throw createClientErrorObject(
           'Неизвестная ошибка. Формы не существует.',
         );
+
+      if (isFieldExistsByName)
+        throw createClientErrorObject('Указанное название поля уже занято.');
 
       const field: Field = {
         id: uuidv4(),

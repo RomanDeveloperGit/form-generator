@@ -34,6 +34,12 @@ const isFormExistsByName = createSelector(
   (name, forms) => forms.some((form) => form.name === name),
 );
 
+const isFieldExistsByName = createSelector(
+  (_state: AppState, _formId: string, name: string) => name,
+  getFormFieldsById,
+  (name, field) => field?.some((field) => field.name === name),
+);
+
 export const formsSelectors = {
   getAllForms,
   getFormById,
@@ -43,4 +49,5 @@ export const formsSelectors = {
   getFormFieldById,
   isFormExistsById,
   isFormExistsByName,
+  isFieldExistsByName,
 };

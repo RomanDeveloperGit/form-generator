@@ -1,0 +1,18 @@
+.container {
+  padding: 30px 0;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.formName {
+  margin-right: auto;
+}
+
+.buttonBox {
+  display: flex;
+  gap: 8px;
+}

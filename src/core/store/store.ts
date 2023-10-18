@@ -2,9 +2,9 @@ import { configureStore } from '@reduxjs/toolkit';
 import { persistStore } from 'redux-persist';
 import persistReducer from 'redux-persist/lib/persistReducer';
 
+import { middlewares } from './middlewares/middlewares';
 import { PERSIST_CONFIG } from './persist-config';
 import { rootReducer } from './root-reducer';
-import { middlewares } from './middlewares/middlewares';
 
 export const store = configureStore({
   reducer: persistReducer(PERSIST_CONFIG, rootReducer),

@@ -20,14 +20,6 @@ export const FieldsActions = ({ formId }: { formId: FormId }) => {
   const formName = useAppSelector((state) =>
     formsSelectors.getFormNameById(state, formId),
   );
-  // const fields = useAppSelector((state) =>
-  //   formsSelectors.getFormFieldsById(state, formId),
-  // );
-  {
-    /* {fields?.map((field) => (
-          <FieldSettings formId={formId} fieldId={field.id} key={field.id} />
-        ))} */
-  }
 
   const {
     control,
@@ -74,7 +66,7 @@ export const FieldsActions = ({ formId }: { formId: FormId }) => {
           formId,
           field: data,
         }),
-      );
+      ).unwrap();
 
       handleCreateFieldDrawerClose();
     } catch (error) {}
@@ -88,8 +80,6 @@ export const FieldsActions = ({ formId }: { formId: FormId }) => {
     ? 'error'
     : undefined;
 
-  console.log('FIELDSSSSSSSSSSSSSSSSSs');
-
   return (
     <>
       <div>
@@ -97,7 +87,7 @@ export const FieldsActions = ({ formId }: { formId: FormId }) => {
           <Typography.Title level={4}>Поля</Typography.Title>
           <div className={styles.buttonBox}>
             <Button onClick={handleCreateFieldButtonClick}>
-              Добавить новое
+              Создать новое
             </Button>
             <Button onClick={handleDeleteAllFieldsButtonClick}>
               Удалить все
@@ -106,14 +96,14 @@ export const FieldsActions = ({ formId }: { formId: FormId }) => {
         </div>
       </div>
       <Drawer
-        title={`Добавление поля для формы "${formName}"`}
+        title={`Создание поля для формы "${formName}"`}
         width={DrawerSize.Default}
         placement="right"
         open={isCreateFieldDrawerOpen}
         onClose={handleCreateFieldDrawerClose}
       >
-        <form onSubmit={handleCreateFieldSubmit}>
-          <div>
+        <form className={styles.drawerForm} onSubmit={handleCreateFieldSubmit}>
+          <div className={styles.drawerInputBox}>
             <Controller
               render={({ field }) => (
                 <Input
@@ -128,7 +118,7 @@ export const FieldsActions = ({ formId }: { formId: FormId }) => {
             />
             <ValidationError message={errors.name?.message} />
           </div>
-          <div>
+          <div className={styles.drawerInputBox}>
             <Controller
               render={({ field }) => (
                 <Input
@@ -143,7 +133,7 @@ export const FieldsActions = ({ formId }: { formId: FormId }) => {
             />
             <ValidationError message={errors.placeholder?.message} />
           </div>
-          <div>
+          <div className={styles.drawerInputBox}>
             <Controller
               render={({ field }) => (
                 <Input
@@ -158,8 +148,12 @@ export const FieldsActions = ({ formId }: { formId: FormId }) => {
             />
             <ValidationError message={errors.defaultValue?.message} />
           </div>
-          <Button htmlType="submit" type="primary">
-            Сохранить
+          <Button
+            className={styles.drawerButton}
+            htmlType="submit"
+            type="primary"
+          >
+            Создать
           </Button>
         </form>
       </Drawer>

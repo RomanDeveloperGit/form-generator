@@ -7,8 +7,7 @@ import { FormId } from '@/modules/forms/model/types';
 import { formsSelectors } from '../../../model/selectors';
 
 import styles from './styles.module.scss';
-import { FormOption } from './types';
-import { convertFormsToOptions } from './utils';
+import { FormOption, convertFormsToOptions } from './utils';
 
 export const FormSelection = ({
   formCreationSlot,

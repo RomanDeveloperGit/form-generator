@@ -11,10 +11,7 @@ export const { reducer: formsReducer, actions: formsActions } = createSlice({
     createForm(state, action: PayloadAction<Form>) {
       state.push(action.payload);
     },
-    renameForm(
-      state,
-      action: PayloadAction<{ id: FormId; newName: string }>,
-    ) {
+    renameForm(state, action: PayloadAction<{ id: FormId; newName: string }>) {
       const formIndex = state.findIndex(
         (form) => form.id === action.payload.id,
       );
