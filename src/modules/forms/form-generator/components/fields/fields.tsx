@@ -25,7 +25,7 @@ export const Fields = ({ formId }: { formId: FormId }) => {
   return (
     <div>
       {fields.map((field) => (
-        <FieldItem field={field} key={field.id} />
+        <FieldItem formId={formId} field={field} key={field.id} />
       ))}
     </div>
   );

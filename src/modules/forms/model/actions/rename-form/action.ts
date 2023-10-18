@@ -6,16 +6,16 @@ import { formsSelectors } from '../../selectors';
 import { formsActions } from '../../slice';
 import { FormId } from '../../types';
 
-type Input = {
+type Dto = {
   id: FormId;
   newName: string;
 };
 
-type Output = Input & {
+type Response = Dto & {
   prevName: string;
 };
 
-export const renameForm = createAppAsyncThunk<Output, Input>(
+export const renameForm = createAppAsyncThunk<Response, Dto>(
   'forms/renameForm',
   async (dto, thunkApi) => {
     try {

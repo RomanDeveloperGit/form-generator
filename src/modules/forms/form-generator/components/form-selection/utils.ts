@@ -5,7 +5,5 @@ export type FormOption = {
   value: FormId;
 };
 
-type ConvertFormsToOptionsFunction = (forms: Form[]) => FormOption[];
-
-export const convertFormsToOptions: ConvertFormsToOptionsFunction = (forms) =>
+export const convertFormsToOptions = (forms: Form[]): FormOption[] =>
   forms.map((form) => ({ label: form.name, value: form.id }));

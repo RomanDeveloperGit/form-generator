@@ -5,16 +5,11 @@ import {
   UNEXPECTED_ERROR_MESSAGE,
 } from '@/constants/errors';
 
-type GenerateClientErrorFunction = (message: string) => ErrorType;
-type GetErrorMessageFunction = (error: unknown) => string;
-
-export const createClientErrorObject: GenerateClientErrorFunction = (
-  message,
-) => ({
+export const createClientErrorObject = (message: string): ErrorType => ({
   code: CLIENT_ERROR_CODE,
   message,
 });
 
-export const getErrorMessage: GetErrorMessageFunction = (error) => {
+export const getErrorMessage = (error: unknown): string => {
   return isErrorType(error) ? error.message : UNEXPECTED_ERROR_MESSAGE;
 };
