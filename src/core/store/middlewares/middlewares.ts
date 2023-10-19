@@ -8,7 +8,7 @@ import {
   REHYDRATE,
 } from 'redux-persist';
 
-import { singletonApis } from '../../signleton-apis';
+import { singletonApis } from './singleton-apis';
 
 import { listenerMiddleware } from './listener-middleware';
 
