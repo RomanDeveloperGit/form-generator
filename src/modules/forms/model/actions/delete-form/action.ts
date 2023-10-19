@@ -19,8 +19,6 @@ export const deleteForm = createAppAsyncThunk<Form, FormId>(
 
       return thunkApi.fulfillWithValue(form);
     } catch (error) {
-      console.error(error);
-
       return thunkApi.rejectWithValue(error);
     }
   },

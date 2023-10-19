@@ -46,8 +46,6 @@ export const renameForm = createAppAsyncThunk<Response, Dto>(
         prevName,
       });
     } catch (error) {
-      console.error(error);
-
       return thunkApi.rejectWithValue(error);
     }
   },

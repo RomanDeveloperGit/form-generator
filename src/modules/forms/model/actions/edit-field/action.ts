@@ -47,8 +47,6 @@ export const editField = createAppAsyncThunk<Response, Dto>(
         prevData: prevFieldData,
       });
     } catch (error) {
-      console.error(error);
-
       return thunkApi.rejectWithValue(error);
     }
   },

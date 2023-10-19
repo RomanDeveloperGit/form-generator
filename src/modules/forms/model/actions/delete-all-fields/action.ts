@@ -29,8 +29,6 @@ export const deleteAllFields = createAppAsyncThunk<Form, FormId>(
         fields: formsSelectors.getFormFieldsById(state, formId) as Field[],
       });
     } catch (error) {
-      console.error(error);
-
       return thunkApi.rejectWithValue(error);
     }
   },

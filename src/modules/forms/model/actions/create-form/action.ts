@@ -31,8 +31,6 @@ export const createForm = createAppAsyncThunk<Form, string>(
 
       return thunkApi.fulfillWithValue(form);
     } catch (error) {
-      console.error(error);
-
       return thunkApi.rejectWithValue(error);
     }
   },

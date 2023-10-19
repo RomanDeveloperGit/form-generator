@@ -47,8 +47,6 @@ export const deleteField = createAppAsyncThunk<Response, Dto>(
         field,
       });
     } catch (error) {
-      console.error(error);
-
       return thunkApi.rejectWithValue(error);
     }
   },
