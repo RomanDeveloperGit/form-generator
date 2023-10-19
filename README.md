@@ -4,6 +4,8 @@ A test application for advanced training in the field of architecture and techno
 
 **Stack: React, Redux Toolkit( with thunk, listener middlewares; with persistent storage ), React Hook Form, Zod, Antd**
 
+P.S: In general, cross-import is prohibited in the project, but it is permissible only if you need to see dumb components that perform only part of the user interface without integration with the store.
+
 # Vite's descriptions
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
