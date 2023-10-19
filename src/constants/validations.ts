@@ -1,4 +1,4 @@
 export enum StringValidationLength {
-  Min = 4,
+  Min = 3,
   Max = 50,
 }
