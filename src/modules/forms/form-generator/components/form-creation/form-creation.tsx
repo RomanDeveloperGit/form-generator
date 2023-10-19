@@ -6,8 +6,8 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { useAppDispatch } from '@/helpers/store';
 
-import { FormId } from '@/modules/forms/model/types';
 import { ValidationError } from '@/modules/forms/form-generator/components/validation-error';
+import { FormId } from '@/modules/forms/model/types';
 
 import { formsThunkActions } from '../../../model/actions';
 import { FormNameSchema, formNameSchema } from '../../schemas/form-name-schema';

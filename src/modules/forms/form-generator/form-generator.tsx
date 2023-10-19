@@ -1,5 +1,4 @@
 import { Typography } from 'antd';
-import { useCallback, useState } from 'react';
 
 import { FormId } from '../model/types';
 
@@ -10,18 +9,18 @@ import { FormCreation } from './components/form-creation';
 import { FormSelection } from './components/form-selection';
 import styles from './styles.module.scss';
 
-export const FormGenerator = () => {
-  const [selectedFormId, setSelectedFormId] = useState<FormId>('');
-
-  const handleFormSelect = useCallback((formId: FormId) => {
-    setSelectedFormId(formId);
-  }, []);
-
+export const FormGenerator = ({
+  selectedFormId,
+  onFormSelect,
+}: {
+  selectedFormId: FormId;
+  onFormSelect: (formId: FormId) => void;
+}) => {
   const handleDeleteSuccess = () => {
-    setSelectedFormId('');
+    onFormSelect('');
   };
 
-  const formCreationSlot = <FormCreation onCreateSuccess={handleFormSelect} />;
+  const formCreationSlot = <FormCreation onCreateSuccess={onFormSelect} />;
 
   return (
     <div className={styles.container}>
@@ -32,7 +31,7 @@ export const FormGenerator = () => {
       <FormSelection
         formCreationSlot={formCreationSlot}
         selectedFormId={selectedFormId}
-        onFormSelect={handleFormSelect}
+        onFormSelect={onFormSelect}
       />
       {selectedFormId && (
         <>
