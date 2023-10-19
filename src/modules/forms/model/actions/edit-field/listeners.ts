@@ -5,9 +5,6 @@ import { getErrorMessage } from '@/utils/errors';
 
 import { editField } from './action';
 
-// метрики - отдельный стейт
-// нотифы - отдельный листенер, который слушает два своих экшена - success, error
-
 export const startEditFieldListeners = (appListener: AppListenerMiddleware) => {
   appListener.startListening({
     actionCreator: editField.fulfilled,

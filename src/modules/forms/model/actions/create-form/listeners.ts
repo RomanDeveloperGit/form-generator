@@ -9,7 +9,6 @@ export const startCreateFormListeners = (appListener: AppListenerMiddleware) => 
   appListener.startListening({
     actionCreator: createForm.fulfilled,
     effect: async (action, listenerApi) => {
-      // condition, subscribe, unsubscribe, pause, take, signal
       listenerApi.extra.metricsApi(
         MetricContext.Form,
         MetricAction.Create,

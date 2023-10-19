@@ -13,6 +13,7 @@ export const FormView = ({ formId }: { formId: FormId }) => {
   const form = useAppSelector((state) =>
     formsSelectors.getFormById(state, formId),
   );
+
   if (!formId || !form) {
     return (
       <Empty
