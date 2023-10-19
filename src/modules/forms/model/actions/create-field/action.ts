@@ -6,11 +6,11 @@ import { createClientErrorObject } from '@/utils/errors';
 
 import { formsSelectors } from '../../selectors';
 import { formsActions } from '../../slice';
-import { Field, Form, FormId } from '../../types';
+import { Field, FieldWithoutId, Form, FormId } from '../../types';
 
 type Dto = {
   formId: FormId;
-  field: Omit<Field, 'id'>;
+  data: FieldWithoutId;
 };
 
 type Response = {
@@ -27,7 +27,7 @@ export const createField = createAppAsyncThunk<Response, Dto>(
       const isFieldExistsByName = formsSelectors.isFieldExistsByName(
         state,
         dto.formId,
-        dto.field.name,
+        dto.data.name,
       );
 
       if (!form)
@@ -40,7 +40,7 @@ export const createField = createAppAsyncThunk<Response, Dto>(
 
       const field: Field = {
         id: uuidv4(),
-        ...dto.field,
+        ...dto.data,
       };
 
       thunkApi.dispatch(

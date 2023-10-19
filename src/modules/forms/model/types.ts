@@ -8,6 +8,8 @@ export type Field = {
   defaultValue: string;
 };
 
+export type FieldWithoutId = Omit<Field, 'id'>;
+
 export type Form = {
   id: FormId;
   name: string;

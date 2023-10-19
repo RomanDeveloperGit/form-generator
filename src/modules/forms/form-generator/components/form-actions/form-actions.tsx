@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/helpers/store';
 import { DrawerSize } from '@/constants/element-sizes';
 
 import { FormId } from '@/modules/forms/model/types';
-import { ValidationError } from '@/modules/ui/validation-error/validation-error';
+import { ValidationError } from '@/modules/forms/form-generator/components/validation-error/validation-error';
 
 import { formsThunkActions } from '../../../model/actions';
 import { formsSelectors } from '../../../model/selectors';

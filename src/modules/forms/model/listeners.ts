@@ -3,6 +3,7 @@ import { startCreateFormListeners } from './actions/create-form/listeners';
 import { startDeleteAllFieldsListeners } from './actions/delete-all-fields/listeners';
 import { startDeleteFieldListeners } from './actions/delete-field/listeners';
 import { startDeleteFormListeners } from './actions/delete-form/listeners';
+import { startEditFieldListeners } from './actions/edit-field/listeners';
 import { startRenameFormListeners } from './actions/rename-form/listeners';
 
 export const startFormsListeners = (appListener: AppListenerMiddleware) => {
@@ -10,6 +11,7 @@ export const startFormsListeners = (appListener: AppListenerMiddleware) => {
   startRenameFormListeners(appListener);
   startDeleteFormListeners(appListener);
   startCreateFieldListeners(appListener);
+  startEditFieldListeners(appListener);
   startDeleteFieldListeners(appListener);
   startDeleteAllFieldsListeners(appListener);
 };

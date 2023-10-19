@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { Field, FieldId, Form, FormId } from './types';
+import { Field, FieldId, FieldWithoutId, Form, FormId } from './types';
 
 const INITIAL_STATE: Form[] = [];
 
@@ -37,6 +37,31 @@ export const { reducer: formsReducer, actions: formsActions } = createSlice({
 
       if (formIndex !== -1) {
         state[formIndex].fields.push(action.payload.field);
+      }
+    },
+    editField(
+      state,
+      action: PayloadAction<{
+        formId: FormId;
+        fieldId: FieldId;
+        newData: FieldWithoutId;
+      }>,
+    ) {
+      const formIndex = state.findIndex(
+        (form) => form.id === action.payload.formId,
+      );
+
+      if (formIndex !== -1) {
+        const fieldIndex = state[formIndex].fields.findIndex(
+          (field) => field.id === action.payload.fieldId,
+        );
+
+        if (fieldIndex !== -1) {
+          state[formIndex].fields[fieldIndex] = {
+            ...state[formIndex].fields[fieldIndex],
+            ...action.payload.newData,
+          };
+        }
       }
     },
     deleteField(
