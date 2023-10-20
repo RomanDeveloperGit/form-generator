@@ -8,8 +8,6 @@ import { App, AppLoader, checkEnv, initSentry, persistor, store } from '@/core';
 checkEnv();
 initSentry();
 
-// убрать утилсы, хелперы и константы - заменить на либс
-
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
