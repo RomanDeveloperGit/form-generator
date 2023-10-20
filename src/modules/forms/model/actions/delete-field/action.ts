@@ -1,6 +1,6 @@
 import { createAppAsyncThunk } from '@/helpers/store';
 
-import { createClientErrorObject } from '@/utils/errors';
+import { createExpectedError } from '@/utils/errors';
 
 import { formsSelectors } from '../../selectors';
 import { formsActions } from '../../slice';
@@ -29,14 +29,10 @@ export const deleteField = createAppAsyncThunk<Response, Dto>(
       );
 
       if (!form)
-        throw createClientErrorObject(
-          'Неизвестная ошибка. Формы не существует.',
-        );
+        throw createExpectedError('Неизвестная ошибка. Формы не существует.');
 
       if (!field)
-        throw createClientErrorObject(
-          'Неизвестная ошибка. Поля не существует.',
-        );
+        throw createExpectedError('Неизвестная ошибка. Поля не существует.');
 
       thunkApi.dispatch(
         formsActions.deleteField({ formId: dto.formId, fieldId: dto.fieldId }),

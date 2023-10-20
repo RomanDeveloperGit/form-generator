@@ -1,6 +1,6 @@
 import { createAppAsyncThunk } from '@/helpers/store';
 
-import { createClientErrorObject } from '@/utils/errors';
+import { createExpectedError } from '@/utils/errors';
 
 import { formsSelectors } from '../../selectors';
 import { formsActions } from '../../slice';
@@ -33,12 +33,12 @@ export const editField = createAppAsyncThunk<Response, Dto>(
       );
 
       if (!prevFieldData)
-        throw createClientErrorObject(
+        throw createExpectedError(
           'Неизвестная ошибка. Предыдущие данные поля не найдены.',
         );
 
       if (foundFieldByName && foundFieldByName.id !== dto.fieldId)
-        throw createClientErrorObject('Указанное название поля уже занято.');
+        throw createExpectedError('Указанное название поля уже занято.');
 
       thunkApi.dispatch(formsActions.editField(dto));
 

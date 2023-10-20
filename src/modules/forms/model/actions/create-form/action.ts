@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { createAppAsyncThunk } from '@/helpers/store';
 
-import { createClientErrorObject } from '@/utils/errors';
+import { createExpectedError } from '@/utils/errors';
 
 import { formsSelectors } from '../../selectors';
 import { formsActions } from '../../slice';
@@ -19,7 +19,7 @@ export const createForm = createAppAsyncThunk<Form, string>(
       );
 
       if (isFormExistsByName)
-        throw createClientErrorObject('Указанное название формы уже занято.');
+        throw createExpectedError('Указанное название формы уже занято.');
 
       const form: Form = {
         id: uuidv4(),

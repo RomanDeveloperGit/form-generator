@@ -7,9 +7,6 @@ import 'normalize.css';
 import styles from './styles.module.scss';
 
 export const App = () => {
-  // sentry ( повешать листенер на все реджекты )
-  // condition, subscribe, unsubscribe, pause, take, signal - подробнее поглядеть
-
   return (
     <div className={styles.container}>
       <Forms />

@@ -1,6 +1,6 @@
 import { createAppAsyncThunk } from '@/helpers/store';
 
-import { createClientErrorObject } from '@/utils/errors';
+import { createExpectedError } from '@/utils/errors';
 
 import { formsSelectors } from '../../selectors';
 import { formsActions } from '../../slice';
@@ -27,17 +27,17 @@ export const renameForm = createAppAsyncThunk<Response, Dto>(
       );
 
       if (!prevName)
-        throw createClientErrorObject(
+        throw createExpectedError(
           'Неизвестная ошибка. Предыдущее название не найдено.',
         );
 
       if (prevName === dto.newName)
-        throw createClientErrorObject(
+        throw createExpectedError(
           'Указанное название формы идентично существующему.',
         );
 
       if (isFormExistsByName)
-        throw createClientErrorObject('Указанное название формы уже занято.');
+        throw createExpectedError('Указанное название формы уже занято.');
 
       thunkApi.dispatch(formsActions.renameForm(dto));
 

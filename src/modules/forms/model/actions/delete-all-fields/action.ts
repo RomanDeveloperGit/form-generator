@@ -1,6 +1,6 @@
 import { createAppAsyncThunk } from '@/helpers/store';
 
-import { createClientErrorObject } from '@/utils/errors';
+import { createExpectedError } from '@/utils/errors';
 
 import { formsSelectors } from '../../selectors';
 import { formsActions } from '../../slice';
@@ -15,12 +15,10 @@ export const deleteAllFields = createAppAsyncThunk<Form, FormId>(
       const fieldsCount = formsSelectors.getFormFieldsCountById(state, formId);
 
       if (!form)
-        throw createClientErrorObject(
-          'Неизвестная ошибка. Формы не существует.',
-        );
+        throw createExpectedError('Неизвестная ошибка. Формы не существует.');
 
       if (!fieldsCount)
-        throw createClientErrorObject(`У формы "${form.name}" нет полей.`);
+        throw createExpectedError(`У формы "${form.name}" нет полей.`);
 
       thunkApi.dispatch(formsActions.deleteAllFields({ formId }));
 

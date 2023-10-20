@@ -8,9 +8,8 @@ import {
   REHYDRATE,
 } from 'redux-persist';
 
-import { singletonApis } from './singleton-apis';
-
 import { listenerMiddleware } from './listener-middleware';
+import { singletonApis } from './singleton-apis';
 
 export const middlewares = getDefaultMiddleware({
   thunk: {
