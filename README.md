@@ -1,10 +1,33 @@
-# About the project
+# Form Generator
 
-A test application for advanced training in the field of architecture and technology. I don't like this approach to architecture, but I decided to try it to identify the pros, cons and unresolved problems. By the way, halfway through the completion of the project, I already regretted that it was not FSD, because during the development process I have to invent and rebuild a lot, not counting other problems. **To be more precise, the greater emphasis in architectural terms is on the Redux Toolkit, because there I made a good implementation of dependency injection (API singletons) in the "extra" property, and also well separated listeners, thunks and reducers, so that in the future you can easily scale the code base and expand existing functionality.** As for React, this is primarily a story about **a unidirectional flow of module dependencies( core -> modules; common layers: libs, constants )**, then it's working with validations (there was a keen desire to do something with them), and as an experiment I chose a modular architecture, if you can call it that. **I consider this version of the architecture as a stripped-down version of FSD**. By the way, this may be suitable for small projects, although for them, imho, it is easier to take a regular dump of components. **I didn't bother much about the design here, the project is focused on the technical aspect.**
+## Project Overview
 
-**Stack: React, Redux Toolkit( with thunk, listener middlewares; with persistent storage ), React Hook Form, Zod, Antd, Sentry**
+Welcome to Form Generator, my experimental application designed for advanced training in architecture and technology. Despite some disadvantages of the chosen approach, this project is only a testing ground for a more thorough identification of the pros, cons, unresolved problems of such a design option and attempts to solve them. Upon completion of the project, I can say that I most likely will not use this approach in my new projects
 
-P.S: In general, cross-import is prohibited in the project, but it is permissible only if you need to see dumb components that perform only part of the user interface without integration with the store.
+**Key Highlights:**
+
+- ** Focus on the Redux Toolkit:** In this project, considerable attention is paid to the Redux Toolkit. I liked that I was able to implement the DI pattern by embedding the API singletons in the Thunk API and Listener API. Listeners, thunks and slices are neatly separated, which makes it easier to scale the codebase and expand it further.
+
+- **Unidirectional Flow:** The project follows a unidirectional flow of module dependencies. The application core can use modules, modules are not allowed to use the core. There are common layers - libs, constants. You can use them from any part of the application.
+
+- **Modular Architecture:** Somewhat similar to a very shortened version of FSD, some principles are taken from there.
+
+- **Technical Focus:** This project prioritizes technical aspects over design aesthetics. Design considerations take a backseat, with a primary focus on architectural and technical choices.
+
+**Note:** Cross-imports are discouraged in the project, with exceptions for "dumb" components that handle specific parts of the user interface without integration with the store.
+
+## Technology Stack
+
+The project utilizes the following technologies and libraries:
+
+- React
+- Redux Toolkit (including thunk, listener middlewares, and persistent storage)
+- React Hook Form
+- Zod
+- Ant Design (Antd)
+- Sentry
+
+<br>
 
 # Vite's descriptions
 
