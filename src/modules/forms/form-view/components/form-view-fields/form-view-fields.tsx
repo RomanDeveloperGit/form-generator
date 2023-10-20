@@ -1,7 +1,7 @@
 import { Empty } from 'antd';
 import { memo } from 'react';
 
-import { useAppSelector } from '@/helpers/store';
+import { useAppSelector } from '@/libs/store';
 
 import { formsSelectors } from '../../../model/selectors';
 import { FormId } from '../../../model/types';

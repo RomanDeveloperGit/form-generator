@@ -1,7 +1,7 @@
 import { Button, Modal, Typography } from 'antd';
 import { useState } from 'react';
 
-import { useAppDispatch, useAppSelector } from '@/helpers/store';
+import { useAppDispatch, useAppSelector } from '@/libs/store';
 
 import { formsSelectors, formsThunkActions } from '@/modules/forms';
 import { FieldWithoutId, FormId } from '@/modules/forms/model/types';

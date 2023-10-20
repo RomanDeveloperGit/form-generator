@@ -1,7 +1,7 @@
 import { MetricAction, MetricContext, MetricType } from '@/constants/metrics';
-import { NotificationType } from '@/constants/notifications';
 
-import { getErrorMessage } from '@/utils/errors';
+import { getErrorMessage } from '@/libs/errors';
+import { NotificationType } from '@/libs/notifications';
 
 import { editField } from './action';
 

@@ -1,11 +1,13 @@
 import { MetricAction, MetricContext, MetricType } from '@/constants/metrics';
-import { NotificationType } from '@/constants/notifications';
 
-import { getErrorMessage } from '@/utils/errors';
+import { getErrorMessage } from '@/libs/errors';
+import { NotificationType } from '@/libs/notifications';
 
 import { renameForm } from './action';
 
-export const startRenameFormListeners = (appListener: AppListenerMiddleware) => {
+export const startRenameFormListeners = (
+  appListener: AppListenerMiddleware,
+) => {
   appListener.startListening({
     actionCreator: renameForm.fulfilled,
     effect: async (action, listenerApi) => {

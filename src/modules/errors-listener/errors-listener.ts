@@ -1,7 +1,7 @@
 import { isRejected } from '@reduxjs/toolkit';
 import * as Sentry from '@sentry/browser';
 
-import { isExpectedError } from '@/helpers/errors';
+import { isExpectedError } from '@/libs/errors';
 
 export const startErrorsListeners = (
   listenerMiddleware: AppListenerMiddleware,

@@ -3,12 +3,12 @@ import { Button, Drawer, Input, Modal, Typography } from 'antd';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
-import { useAppDispatch, useAppSelector } from '@/helpers/store';
-
 import { DrawerSize } from '@/constants/element-sizes';
 
-import { FormId } from '@/modules/forms/model/types';
+import { useAppDispatch, useAppSelector } from '@/libs/store';
+
 import { ValidationError } from '@/modules/forms/form-generator/components/validation-error/validation-error';
+import { FormId } from '@/modules/forms/model/types';
 
 import { formsThunkActions } from '../../../model/actions';
 import { formsSelectors } from '../../../model/selectors';
