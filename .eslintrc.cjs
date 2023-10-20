@@ -21,17 +21,12 @@ module.exports = {
         groups: ['builtin', 'external', 'parent', 'sibling', 'index'],
         pathGroups: [
           {
-            pattern: '@/helpers/**',
-            group: 'external',
-            position: 'after',
-          },
-          {
             pattern: '@/constants/**',
             group: 'external',
             position: 'after',
           },
           {
-            pattern: '@/utils/**',
+            pattern: '@/libs/**',
             group: 'external',
             position: 'after',
           },

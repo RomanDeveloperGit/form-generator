@@ -1,6 +1,6 @@
 import { Empty } from 'antd';
 
-import { useAppSelector } from '@/helpers/store';
+import { useAppSelector } from '@/libs/store';
 
 import { formsSelectors } from '@/modules/forms';
 import { FormId } from '@/modules/forms/model/types';

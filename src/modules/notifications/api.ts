@@ -1,7 +1,7 @@
 import { notification } from 'antd';
 import { ReactNode } from 'react';
 
-import { NotificationType } from '@/constants/notifications';
+import { NotificationType } from '@/libs/notifications';
 
 export const notificationsApi = (
   type: NotificationType,

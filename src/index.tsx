@@ -8,7 +8,6 @@ import { App, AppLoader, checkEnv, initSentry, persistor, store } from '@/core';
 checkEnv();
 initSentry();
 
-// коммит на внедрение сентри
 // убрать утилсы, хелперы и константы - заменить на либс
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
