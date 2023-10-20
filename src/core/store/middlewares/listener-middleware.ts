@@ -1,6 +1,6 @@
 import { createListenerMiddleware } from '@reduxjs/toolkit';
 
-import { startErrorsListeners } from '@/modules/errors-listener';
+import { startErrorsListeners } from '@/modules/errors';
 import { startFormsListeners } from '@/modules/forms';
 
 import { singletonApis } from './singleton-apis';
